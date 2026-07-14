@@ -13,6 +13,13 @@ SOURCES += \
     Sources/entities/listener.cpp \
     Sources/entities/playlist.cpp \
     Sources/entities/song.cpp \
+    Sources/repositories/accountmanager.cpp \
+    Sources/repositories/albummanager.cpp \
+    Sources/repositories/artistmanager.cpp \
+    Sources/repositories/datahandler.cpp \
+    Sources/repositories/listenermanager.cpp \
+    Sources/repositories/playlistmanager.cpp \
+    Sources/repositories/songmanager.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -23,6 +30,13 @@ HEADERS += \
     Sources/entities/listener.h \
     Sources/entities/playlist.h \
     Sources/entities/song.h \
+    Sources/repositories/accountmanager.h \
+    Sources/repositories/albummanager.h \
+    Sources/repositories/artistmanager.h \
+    Sources/repositories/datahandler.h \
+    Sources/repositories/listenermanager.h \
+    Sources/repositories/playlistmanager.h \
+    Sources/repositories/songmanager.h \
     mainwindow.h
 
 FORMS += \
