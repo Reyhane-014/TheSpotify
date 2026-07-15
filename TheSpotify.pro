@@ -20,6 +20,9 @@ SOURCES += \
     Sources/repositories/listenermanager.cpp \
     Sources/repositories/playlistmanager.cpp \
     Sources/repositories/songmanager.cpp \
+    Sources/services/artisthandler.cpp \
+    Sources/services/authmanager.cpp \
+    Sources/services/listenerhandler.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -37,6 +40,9 @@ HEADERS += \
     Sources/repositories/listenermanager.h \
     Sources/repositories/playlistmanager.h \
     Sources/repositories/songmanager.h \
+    Sources/services/artisthandler.h \
+    Sources/services/authmanager.h \
+    Sources/services/listenerhandler.h \
     mainwindow.h
 
 FORMS += \
