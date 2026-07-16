@@ -222,6 +222,15 @@ std::shared_ptr<Listener> ListenerHandler::fetchListener(int listenerId) const
     return nullptr;
 }
 
+std::shared_ptr<Playlist> ListenerHandler::getPlaylist(int playlistId) const
+{
+    auto playlist = playlistManager.findPlaylist(playlistId);
+    if (playlist.has_value()) {
+        return std::make_shared<Playlist>(playlist.value());
+    }
+    return nullptr;
+}
+
 std::vector<Song> ListenerHandler::searchSongsByKeyword(const std::string& keyword) const
 {
     return songManager.searchSongsByTitle(keyword);

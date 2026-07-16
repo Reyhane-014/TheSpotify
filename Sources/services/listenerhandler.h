@@ -1,11 +1,11 @@
 #ifndef LISTENERHANDLER_H
 #define LISTENERHANDLER_H
 
-#include "../repositories/ListenerManager.h"
-#include "../repositories/PlaylistManager.h"
-#include "../repositories/SongManager.h"
-#include "../repositories/ArtistManager.h"
-#include "../repositories/AlbumManager.h"
+#include "../repositories/listenermanager.h"
+#include "../repositories/playlistmanager.h"
+#include "../repositories/songmanager.h"
+#include "../repositories/artistmanager.h"
+#include "../repositories/albummanager.h"
 #include "../entities/listener.h"
 #include "../entities/playlist.h"
 #include "../entities/song.h"
@@ -47,6 +47,7 @@ public:
     std::shared_ptr<Song> fetchSong(int songId) const;
 
     std::shared_ptr<Listener> fetchListener(int listenerId) const;
+    std::shared_ptr<Playlist> getPlaylist(int playlistId) const;
 
     std::vector<Song> searchSongsByKeyword(const std::string& keyword) const;
     std::vector<Song> filterSongsByGenre(const std::string& genre) const;

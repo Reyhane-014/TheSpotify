@@ -1,9 +1,9 @@
 #ifndef ARTISTHANDLER_H
 #define ARTISTHANDLER_H
 
-#include "../repositories/ArtistManager.h"
-#include "../repositories/AlbumManager.h"
-#include "../repositories/SongManager.h"
+#include "../repositories/artistmanager.h"
+#include "../repositories/albummanager.h"
+#include "../repositories/songmanager.h"
 #include "../entities/artist.h"
 #include "../entities/album.h"
 #include "../entities/song.h"

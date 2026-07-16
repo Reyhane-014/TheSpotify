@@ -4,15 +4,18 @@
 #include "../entities/account.h"
 #include <vector>
 #include <optional>
+#include <string>
 
 class AccountManager
 {
 private:
+    AccountManager();
+    static AccountManager* instance;
     std::vector<Account> accounts;
     int nextId;
 
 public:
-    AccountManager();
+    static AccountManager* getInstance();
 
     int storeAccount(const Account& account);
     bool deleteAccount(int id);

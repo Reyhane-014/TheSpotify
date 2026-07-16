@@ -1,54 +1,53 @@
-QT += widgets
+QT       += core widgets
 
-CONFIG += c++17
-
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+TARGET = TheSpotify
+TEMPLATE = app
 
 SOURCES += \
-    Sources/entities/account.cpp \
-    Sources/entities/album.cpp \
-    Sources/entities/artist.cpp \
-    Sources/entities/listener.cpp \
-    Sources/entities/playlist.cpp \
-    Sources/entities/song.cpp \
+    main.cpp \
+    GUI/loginwindow.cpp \
+    GUI/registerwindow.cpp \
+    GUI/artistdashboard.cpp \
+    GUI/listenerdashboard.cpp \
+    Sources/services/authmanager.cpp \
+    Sources/services/artisthandler.cpp \
+    Sources/services/listenerhandler.cpp \
     Sources/repositories/accountmanager.cpp \
-    Sources/repositories/albummanager.cpp \
     Sources/repositories/artistmanager.cpp \
-    Sources/repositories/datahandler.cpp \
     Sources/repositories/listenermanager.cpp \
+    Sources/repositories/albummanager.cpp \
     Sources/repositories/playlistmanager.cpp \
     Sources/repositories/songmanager.cpp \
-    Sources/services/artisthandler.cpp \
-    Sources/services/authmanager.cpp \
-    Sources/services/listenerhandler.cpp \
-    main.cpp \
-    mainwindow.cpp
+    Sources/entities/account.cpp \
+    Sources/entities/artist.cpp \
+    Sources/entities/listener.cpp \
+    Sources/entities/album.cpp \
+    Sources/entities/playlist.cpp \
+    Sources/entities/song.cpp
 
 HEADERS += \
-    Sources/entities/account.h \
-    Sources/entities/album.h \
-    Sources/entities/artist.h \
-    Sources/entities/listener.h \
-    Sources/entities/playlist.h \
-    Sources/entities/song.h \
+    GUI/loginwindow.h \
+    GUI/registerwindow.h \
+    GUI/artistdashboard.h \
+    GUI/listenerdashboard.h \
+    Sources/services/authmanager.h \
+    Sources/services/artisthandler.h \
+    Sources/services/listenerhandler.h \
     Sources/repositories/accountmanager.h \
-    Sources/repositories/albummanager.h \
     Sources/repositories/artistmanager.h \
-    Sources/repositories/datahandler.h \
     Sources/repositories/listenermanager.h \
+    Sources/repositories/albummanager.h \
     Sources/repositories/playlistmanager.h \
     Sources/repositories/songmanager.h \
-    Sources/services/artisthandler.h \
-    Sources/services/authmanager.h \
-    Sources/services/listenerhandler.h \
-    mainwindow.h
+    Sources/entities/account.h \
+    Sources/entities/artist.h \
+    Sources/entities/listener.h \
+    Sources/entities/album.h \
+    Sources/entities/playlist.h \
+    Sources/entities/song.h
 
 FORMS += \
-    mainwindow.ui
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+    GUI/loginwindow.ui \
+    GUI/registerwindow.ui \
+    GUI/artistdashboard.ui \
+    GUI/listenerdashboard.ui

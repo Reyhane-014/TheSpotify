@@ -1,9 +1,9 @@
 #ifndef AUTHMANAGER_H
 #define AUTHMANAGER_H
 
-#include "../repositories/AccountManager.h"
-#include "../repositories/ArtistManager.h"
-#include "../repositories/ListenerManager.h"
+#include "../repositories/accountmanager.h"
+#include "../repositories/artistmanager.h"
+#include "../repositories/listenermanager.h"
 #include "../entities/account.h"
 #include <string>
 #include <memory>
@@ -11,7 +11,7 @@
 class AuthManager
 {
 private:
-    AccountManager accountManager;
+    AccountManager* accountManager;
     ArtistManager artistManager;
     ListenerManager listenerManager;
 
