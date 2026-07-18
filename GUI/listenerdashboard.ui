@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1100</width>
+    <height>750</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -117,9 +117,12 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="addSongsBtn">
+       <widget class="QPushButton" name="updatePlaylistBtn">
         <property name="text">
-         <string>🎵 Browse Songs</string>
+         <string>✏️ Rename</string>
+        </property>
+        <property name="enabled">
+         <bool>false</bool>
         </property>
         <property name="styleSheet">
          <string notr="true">
@@ -168,6 +171,81 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="removeSongBtn">
+        <property name="text">
+         <string>➖ Remove Song</string>
+        </property>
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+          QPushButton {
+              background-color: #E94560;
+              border: none;
+              border-radius: 8px;
+              color: #FFFFFF;
+              font-family: "Segoe UI", sans-serif;
+              font-size: 13px;
+              font-weight: 600;
+              padding: 8px 16px;
+          }
+          QPushButton:hover {
+              background-color: #C73E54;
+          }
+         </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="viewArtistsBtn">
+        <property name="text">
+         <string>🎤 View Artists</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+          QPushButton {
+              background-color: #0F3460;
+              border: none;
+              border-radius: 8px;
+              color: #FFFFFF;
+              font-family: "Segoe UI", sans-serif;
+              font-size: 13px;
+              font-weight: 600;
+              padding: 8px 16px;
+          }
+          QPushButton:hover {
+              background-color: #16213E;
+          }
+         </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="editAccountBtn">
+        <property name="text">
+         <string>⚙️ Edit Account</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+          QPushButton {
+              background-color: #0F3460;
+              border: none;
+              border-radius: 8px;
+              color: #FFFFFF;
+              font-family: "Segoe UI", sans-serif;
+              font-size: 13px;
+              font-weight: 600;
+              padding: 8px 16px;
+          }
+          QPushButton:hover {
+              background-color: #16213E;
+          }
+         </string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="toolbarSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -183,124 +261,359 @@
      </layout>
     </item>
     <item>
-     <widget class="QGroupBox" name="playlistsGroup">
-      <property name="title">
-       <string>📋 Your Playlists</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">
-        QGroupBox {
-            font-family: "Segoe UI", sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            color: #1A1A2E;
-            border: 2px solid #D0D0D0;
-            border-radius: 12px;
-            margin-top: 12px;
-            padding-top: 8px;
-        }
-        QGroupBox::title {
-            subcontrol-origin: margin;
-            subcontrol-position: top left;
-            left: 16px;
-            padding: 0 8px;
-            background-color: #F8F9FA;
-        }
-       </string>
-      </property>
-      <layout class="QHBoxLayout" name="playlistsLayout">
-       <item>
-        <widget class="QListWidget" name="playlistsList">
-         <property name="styleSheet">
-          <string notr="true">
-           QListWidget {
-               background-color: #FFFFFF;
-               border: none;
-               border-radius: 8px;
-               color: #1A1A2E;
-               font-size: 14px;
-               font-family: "Segoe UI", sans-serif;
-               padding: 8px;
-               min-height: 180px;
-           }
-           QListWidget::item {
-               padding: 12px 16px;
-               border-radius: 8px;
-               margin: 2px 0;
-           }
-           QListWidget::item:selected {
-               background-color: #0F3460;
-               color: #FFFFFF;
-           }
-           QListWidget::item:hover:!selected {
-               background-color: #E8EDF2;
-           }
-          </string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
+     <layout class="QHBoxLayout" name="mainLayout">
+      <item>
+       <widget class="QGroupBox" name="playlistsGroup">
+        <property name="title">
+         <string>📋 Your Playlists</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+          QGroupBox {
+              font-family: "Segoe UI", sans-serif;
+              font-size: 14px;
+              font-weight: 600;
+              color: #1A1A2E;
+              border: 2px solid #D0D0D0;
+              border-radius: 12px;
+              margin-top: 12px;
+              padding-top: 8px;
+          }
+          QGroupBox::title {
+              subcontrol-origin: margin;
+              subcontrol-position: top left;
+              left: 16px;
+              padding: 0 8px;
+              background-color: #F8F9FA;
+          }
+         </string>
+        </property>
+        <layout class="QVBoxLayout" name="playlistsLayout">
+         <item>
+          <widget class="QListWidget" name="playlistsList">
+           <property name="styleSheet">
+            <string notr="true">
+             QListWidget {
+                 background-color: #FFFFFF;
+                 border: none;
+                 border-radius: 8px;
+                 color: #1A1A2E;
+                 font-size: 14px;
+                 font-family: "Segoe UI", sans-serif;
+                 padding: 8px;
+                 min-height: 200px;
+                 max-height: 300px;
+                 outline: none;
+             }
+             QListWidget::item {
+                 padding: 12px 16px;
+                 border-radius: 8px;
+                 margin: 2px 0;
+                 border: none;
+                 outline: none;
+             }
+             QListWidget::item:selected {
+                 background-color: #0F3460;
+                 color: #FFFFFF;
+                 border: none;
+                 outline: none;
+             }
+             QListWidget::item:hover:!selected {
+                 background-color: #E8EDF2;
+             }
+            </string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="songsGroup">
+        <property name="title">
+         <string>🎶 Songs in Playlist</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+          QGroupBox {
+              font-family: "Segoe UI", sans-serif;
+              font-size: 14px;
+              font-weight: 600;
+              color: #1A1A2E;
+              border: 2px solid #D0D0D0;
+              border-radius: 12px;
+              margin-top: 12px;
+              padding-top: 8px;
+          }
+          QGroupBox::title {
+              subcontrol-origin: margin;
+              subcontrol-position: top left;
+              left: 16px;
+              padding: 0 8px;
+              background-color: #F8F9FA;
+          }
+         </string>
+        </property>
+        <layout class="QVBoxLayout" name="songsLayout">
+         <item>
+          <widget class="QListWidget" name="songsList">
+           <property name="styleSheet">
+            <string notr="true">
+             QListWidget {
+                 background-color: #FFFFFF;
+                 border: none;
+                 border-radius: 8px;
+                 color: #1A1A2E;
+                 font-size: 13px;
+                 font-family: "Segoe UI", sans-serif;
+                 padding: 8px;
+                 min-height: 200px;
+                 max-height: 300px;
+                 outline: none;
+             }
+             QListWidget::item {
+                 padding: 10px 16px;
+                 border-radius: 8px;
+                 margin: 1px 0;
+                 border: none;
+                 outline: none;
+             }
+             QListWidget::item:selected {
+                 background-color: #0F3460;
+                 color: #FFFFFF;
+                 border: none;
+                 outline: none;
+             }
+             QListWidget::item:hover:!selected {
+                 background-color: #E8EDF2;
+             }
+            </string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="allSongsGroup">
+        <property name="title">
+         <string>🎵 All Songs</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+          QGroupBox {
+              font-family: "Segoe UI", sans-serif;
+              font-size: 14px;
+              font-weight: 600;
+              color: #1A1A2E;
+              border: 2px solid #D0D0D0;
+              border-radius: 12px;
+              margin-top: 12px;
+              padding-top: 8px;
+          }
+          QGroupBox::title {
+              subcontrol-origin: margin;
+              subcontrol-position: top left;
+              left: 16px;
+              padding: 0 8px;
+              background-color: #F8F9FA;
+          }
+         </string>
+        </property>
+        <layout class="QVBoxLayout" name="allSongsLayout">
+         <item>
+          <layout class="QHBoxLayout" name="searchFilterLayout">
+           <item>
+            <widget class="QLineEdit" name="searchEdit">
+             <property name="placeholderText">
+              <string>🔍 Search songs by title...</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">
+               QLineEdit {
+                   background-color: #FFFFFF;
+                   border: 1px solid #D0D0D0;
+                   border-radius: 20px;
+                   color: #333333;
+                   font-size: 13px;
+                   padding: 8px 16px;
+                   font-family: "Segoe UI", sans-serif;
+               }
+               QLineEdit:focus {
+                   border-color: #007AFF;
+               }
+              </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="genreFilterCombo">
+             <property name="styleSheet">
+              <string notr="true">
+               QComboBox {
+                   background-color: #FFFFFF;
+                   border: 1px solid #D0D0D0;
+                   border-radius: 20px;
+                   color: #333333;
+                   font-size: 13px;
+                   padding: 8px 16px;
+                   font-family: "Segoe UI", sans-serif;
+                   min-width: 120px;
+               }
+               QComboBox:focus {
+                   border-color: #007AFF;
+               }
+               QComboBox::drop-down {
+                   border: none;
+               }
+              </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="yearFilterCombo">
+             <property name="styleSheet">
+              <string notr="true">
+               QComboBox {
+                   background-color: #FFFFFF;
+                   border: 1px solid #D0D0D0;
+                   border-radius: 20px;
+                   color: #333333;
+                   font-size: 13px;
+                   padding: 8px 16px;
+                   font-family: "Segoe UI", sans-serif;
+                   min-width: 100px;
+               }
+               QComboBox:focus {
+                   border-color: #007AFF;
+               }
+               QComboBox::drop-down {
+                   border: none;
+               }
+              </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="clearFilterBtn">
+             <property name="text">
+              <string>✖ Clear</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">
+               QPushButton {
+                   background-color: #6C757D;
+                   border: none;
+                   border-radius: 20px;
+                   color: #FFFFFF;
+                   font-family: "Segoe UI", sans-serif;
+                   font-size: 13px;
+                   font-weight: 600;
+                   padding: 8px 16px;
+               }
+               QPushButton:hover {
+                   background-color: #5A6268;
+               }
+              </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="searchFilterSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QListWidget" name="allSongsList">
+           <property name="styleSheet">
+            <string notr="true">
+             QListWidget {
+                 background-color: #FFFFFF;
+                 border: none;
+                 border-radius: 8px;
+                 color: #1A1A2E;
+                 font-size: 13px;
+                 font-family: "Segoe UI", sans-serif;
+                 padding: 8px;
+                 min-height: 200px;
+                 max-height: 300px;
+                 outline: none;
+             }
+             QListWidget::item {
+                 padding: 10px 16px;
+                 border-radius: 8px;
+                 margin: 1px 0;
+                 border: none;
+                 outline: none;
+             }
+             QListWidget::item:selected {
+                 background-color: #0F3460;
+                 color: #FFFFFF;
+                 border: none;
+                 outline: none;
+             }
+             QListWidget::item:hover:!selected {
+                 background-color: #E8EDF2;
+             }
+            </string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
-     <widget class="QGroupBox" name="songsGroup">
-      <property name="title">
-       <string>🎶 Songs in Playlist</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">
-        QGroupBox {
-            font-family: "Segoe UI", sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            color: #1A1A2E;
-            border: 2px solid #D0D0D0;
-            border-radius: 12px;
-            margin-top: 12px;
-            padding-top: 8px;
-        }
-        QGroupBox::title {
-            subcontrol-origin: margin;
-            subcontrol-position: top left;
-            left: 16px;
-            padding: 0 8px;
-            background-color: #F8F9FA;
-        }
-       </string>
-      </property>
-      <layout class="QHBoxLayout" name="songsLayout">
-       <item>
-        <widget class="QListWidget" name="songsList">
-         <property name="styleSheet">
-          <string notr="true">
-           QListWidget {
-               background-color: #FFFFFF;
-               border: none;
-               border-radius: 8px;
-               color: #1A1A2E;
-               font-size: 13px;
-               font-family: "Segoe UI", sans-serif;
-               padding: 8px;
-               min-height: 120px;
-           }
-           QListWidget::item {
-               padding: 10px 16px;
-               border-radius: 8px;
-               margin: 1px 0;
-           }
-           QListWidget::item:selected {
-               background-color: #0F3460;
-               color: #FFFFFF;
-           }
-           QListWidget::item:hover:!selected {
-               background-color: #E8EDF2;
-           }
-          </string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
+     <layout class="QHBoxLayout" name="actionLayout">
+      <item>
+       <widget class="QPushButton" name="addSongsBtn">
+        <property name="text">
+         <string>➕ Add Selected Song to Playlist</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+          QPushButton {
+              background-color: #28A745;
+              border: none;
+              border-radius: 8px;
+              color: #FFFFFF;
+              font-family: "Segoe UI", sans-serif;
+              font-size: 13px;
+              font-weight: 600;
+              padding: 8px 16px;
+          }
+          QPushButton:hover {
+              background-color: #218838;
+          }
+         </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="actionSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QLabel" name="errorLabel">
@@ -329,7 +642,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1100</width>
      <height>22</height>
     </rect>
    </property>

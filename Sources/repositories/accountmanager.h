@@ -25,6 +25,11 @@ public:
     bool isUsernameUsed(const std::string& username) const;
     int getTotalAccounts() const;
     void clearAllAccounts();
+    void loadFromFile();
+    void saveToFile();
+    void reload();
+    int getNextId() const { return nextId; }
+    void setNextId(int id) { nextId = id; }
 };
 
 #endif

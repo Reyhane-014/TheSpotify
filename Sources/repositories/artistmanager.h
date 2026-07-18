@@ -9,6 +9,7 @@ class ArtistManager
 {
 private:
     std::vector<Artist> artists;
+    int nextId;
 
 public:
     ArtistManager();
@@ -20,6 +21,11 @@ public:
     std::vector<Artist> getAllArtists() const;
     bool artistExists(int id) const;
     int getArtistCount() const;
+    void loadFromFile();
+    void saveToFile();
+    void reload();
+    int getNextId() const;
+    void setNextId(int id);
 };
 
 #endif

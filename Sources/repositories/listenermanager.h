@@ -18,8 +18,9 @@ public:
     std::optional<Listener> fetchListener(int id) const;
     std::optional<Listener> fetchListenerByUsername(const std::string& username) const;
     std::vector<Listener> getAllListeners() const;
-    void updateLikedSongs(int listenerId, int songId, bool liked);
-    bool isSongLikedByListener(int listenerId, int songId) const;
+    void loadFromFile();
+    void saveToFile();
+    void reload();
 };
 
 #endif

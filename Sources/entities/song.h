@@ -16,9 +16,10 @@ private:
     std::string filePath;
 
 public:
+    Song();
     Song(int id, const std::string& title, const std::string& genre,
          int releaseYear, int duration, int artistId,
-         int albumId = 0, const std::string& filePath = "");
+         int albumId, const std::string& filePath);
 
     int getId() const;
     std::string getTitle() const;
@@ -35,7 +36,6 @@ public:
     void setDuration(int newDuration);
     void setAlbumId(int newAlbumId);
     void setFilePath(const std::string& path);
-
 
     bool isSingle() const;
     std::string getFormattedDuration() const;

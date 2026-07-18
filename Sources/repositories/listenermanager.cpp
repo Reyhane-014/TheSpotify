@@ -1,17 +1,40 @@
-#include "ListenerManager.h"
+#include "listenermanager.h"
+#include "datamanager.h"
 #include <algorithm>
 
-ListenerManager::ListenerManager() {}
+ListenerManager::ListenerManager()
+{
+    loadFromFile();
+}
+
+void ListenerManager::reload()
+{
+    loadFromFile();
+}
+
+void ListenerManager::loadFromFile()
+{
+    DataManager* dm = DataManager::getInstance();
+    listeners = dm->loadListeners();
+}
+
+void ListenerManager::saveToFile()
+{
+    DataManager* dm = DataManager::getInstance();
+    dm->saveListeners(listeners);
+}
 
 int ListenerManager::storeListener(const Listener& listener)
 {
     for (int i = 0; i < (int)listeners.size(); i++) {
         if (listeners[i].getId() == listener.getId()) {
             listeners[i] = listener;
+            saveToFile();
             return listeners[i].getId();
         }
     }
     listeners.push_back(listener);
+    saveToFile();
     return listener.getId();
 }
 
@@ -20,6 +43,7 @@ bool ListenerManager::deleteListener(int id)
     for (int i = 0; i < (int)listeners.size(); i++) {
         if (listeners[i].getId() == id) {
             listeners.erase(listeners.begin() + i);
+            saveToFile();
             return true;
         }
     }
@@ -49,28 +73,4 @@ std::optional<Listener> ListenerManager::fetchListenerByUsername(const std::stri
 std::vector<Listener> ListenerManager::getAllListeners() const
 {
     return listeners;
-}
-
-void ListenerManager::updateLikedSongs(int listenerId, int songId, bool liked)
-{
-    for (int i = 0; i < (int)listeners.size(); i++) {
-        if (listeners[i].getId() == listenerId) {
-            if (liked) {
-                listeners[i].likeSong(songId);
-            } else {
-                listeners[i].unlikeSong(songId);
-            }
-            break;
-        }
-    }
-}
-
-bool ListenerManager::isSongLikedByListener(int listenerId, int songId) const
-{
-    for (int i = 0; i < (int)listeners.size(); i++) {
-        if (listeners[i].getId() == listenerId) {
-            return listeners[i].isSongLiked(songId);
-        }
-    }
-    return false;
 }

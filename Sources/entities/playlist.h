@@ -10,11 +10,12 @@ private:
     int id;
     std::string name;
     int listenerId;
-    std::vector<int> songIds;
     bool isFavorite;
+    std::vector<int> songIds;
 
 public:
-    Playlist(int id, const std::string& name, int listenerId, bool isFavorite = false);
+    Playlist();
+    Playlist(int id, const std::string& name, int listenerId, bool isFavorite);
 
     int getId() const;
     std::string getName() const;
@@ -24,7 +25,6 @@ public:
 
     void setName(const std::string& newName);
     void setIsFavorite(bool favorite);
-
     void addSong(int songId);
     void removeSong(int songId);
     bool hasSong(int songId) const;

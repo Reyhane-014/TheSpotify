@@ -8,9 +8,6 @@ RegisterWindow::RegisterWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->roleCombo->addItem("Artist");
-    ui->roleCombo->addItem("Listener");
-
     connect(ui->registerBtn, &QPushButton::clicked, this, &RegisterWindow::onRegisterClicked);
     connect(ui->backBtn, &QPushButton::clicked, this, &RegisterWindow::onBackClicked);
 }

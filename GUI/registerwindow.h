@@ -4,7 +4,9 @@
 #include <QMainWindow>
 #include "../Sources/services/authmanager.h"
 
+QT_BEGIN_NAMESPACE
 namespace Ui { class RegisterWindow; }
+QT_END_NAMESPACE
 
 class RegisterWindow : public QMainWindow
 {

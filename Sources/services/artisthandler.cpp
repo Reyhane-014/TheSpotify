@@ -1,4 +1,6 @@
 #include "artisthandler.h"
+#include "../repositories/datamanager.h"
+#include "../repositories/accountmanager.h"
 
 ArtistHandler::ArtistHandler() {}
 
@@ -19,6 +21,9 @@ int ArtistHandler::addNewAlbum(int artistId, const std::string& name)
     Artist updatedArtist = artist.value();
     updatedArtist.addAlbum(albumId);
     artistManager.saveArtist(updatedArtist);
+
+    saveAllData();
+    reloadAllData();
 
     return albumId;
 }
@@ -42,7 +47,10 @@ bool ArtistHandler::deleteAlbum(int albumId)
         artistManager.saveArtist(updatedArtist);
     }
 
-    return albumManager.removeAlbum(albumId);
+    bool result = albumManager.removeAlbum(albumId);
+    saveAllData();
+    reloadAllData();
+    return result;
 }
 
 std::vector<Album> ArtistHandler::fetchArtistAlbums(int artistId) const
@@ -89,6 +97,8 @@ int ArtistHandler::addNewSong(int artistId, const std::string& title, const std:
         }
     }
 
+    saveAllData();
+    reloadAllData();
     return songId;
 }
 
@@ -133,6 +143,8 @@ bool ArtistHandler::updateSong(int songId, const std::string& title, const std::
     }
 
     songManager.addSong(updatedSong);
+    saveAllData();
+    reloadAllData();
     return true;
 }
 
@@ -152,7 +164,10 @@ bool ArtistHandler::deleteSong(int songId)
         }
     }
 
-    return songManager.deleteSong(songId);
+    bool result = songManager.deleteSong(songId);
+    saveAllData();
+    reloadAllData();
+    return result;
 }
 
 std::vector<Song> ArtistHandler::fetchArtistSongs(int artistId) const
@@ -163,6 +178,16 @@ std::vector<Song> ArtistHandler::fetchArtistSongs(int artistId) const
 std::vector<Song> ArtistHandler::fetchSongsByAlbum(int albumId) const
 {
     return songManager.getSongsByAlbum(albumId);
+}
+
+std::shared_ptr<Song> ArtistHandler::fetchSong(int songId) const
+{
+    auto song = songManager.getSong(songId);
+    if (song.has_value()) {
+        Song songCopy = song.value();
+        return std::make_shared<Song>(songCopy);
+    }
+    return nullptr;
 }
 
 std::vector<Song> ArtistHandler::fetchSingles(int artistId) const
@@ -185,4 +210,22 @@ std::shared_ptr<Artist> ArtistHandler::fetchArtist(int artistId) const
         return std::make_shared<Artist>(artistCopy);
     }
     return nullptr;
+}
+
+void ArtistHandler::saveAllData()
+{
+    DataManager* dm = DataManager::getInstance();
+    AccountManager* am = AccountManager::getInstance();
+
+    dm->saveAccounts(am->getAllAccounts());
+    dm->saveArtists(artistManager.getAllArtists());
+    dm->saveAlbums(albumManager.getAllAlbums());
+    dm->saveSongs(songManager.getAllSongs());
+}
+
+void ArtistHandler::reloadAllData()
+{
+    artistManager.reload();
+    albumManager.reload();
+    songManager.reload();
 }

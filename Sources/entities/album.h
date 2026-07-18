@@ -13,6 +13,7 @@ private:
     std::vector<int> songIds;
 
 public:
+    Album();
     Album(int id, const std::string& name, int artistId);
 
     int getId() const;
@@ -21,10 +22,8 @@ public:
     const std::vector<int>& getSongIds() const;
 
     void setName(const std::string& newName);
-
     void addSong(int songId);
     void removeSong(int songId);
-
     bool hasSong(int songId) const;
     int getSongCount() const;
 };

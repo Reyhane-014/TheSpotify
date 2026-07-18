@@ -19,8 +19,12 @@ public:
     std::optional<Playlist> findPlaylist(int id) const;
     std::vector<Playlist> getAllPlaylists() const;
     std::vector<Playlist> getPlaylistsByListener(int listenerId) const;
-    std::optional<Playlist> getFavoritePlaylist(int listenerId) const;
     bool playlistExists(int id) const;
+    void loadFromFile();
+    void saveToFile();
+    void reload();
+    int getNextId() const { return nextId; }
+    void setNextId(int id) { nextId = id; }
 };
 
 #endif

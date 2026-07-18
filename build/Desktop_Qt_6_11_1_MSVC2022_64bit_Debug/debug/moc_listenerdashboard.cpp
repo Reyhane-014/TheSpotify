@@ -44,7 +44,21 @@ template <> constexpr inline auto ListenerDashboard::qt_create_metaobjectdata<qt
         "onCreatePlaylistClicked",
         "onDeletePlaylistClicked",
         "onPlaylistSelected",
-        "onAddSongsClicked"
+        "QListWidgetItem*",
+        "item",
+        "onAddSongsClicked",
+        "onViewArtistsClicked",
+        "onEditAccountClicked",
+        "onUpdatePlaylistClicked",
+        "onRemoveSongClicked",
+        "onSongInPlaylistSelected",
+        "onAllSongsItemClicked",
+        "onSearchTextChanged",
+        "text",
+        "onGenreFilterChanged",
+        "index",
+        "onYearFilterChanged",
+        "onClearFilterClicked"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -55,9 +69,41 @@ template <> constexpr inline auto ListenerDashboard::qt_create_metaobjectdata<qt
         // Slot 'onDeletePlaylistClicked'
         QtMocHelpers::SlotData<void()>(4, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onPlaylistSelected'
-        QtMocHelpers::SlotData<void()>(5, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void(QListWidgetItem *)>(5, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 6, 7 },
+        }}),
         // Slot 'onAddSongsClicked'
-        QtMocHelpers::SlotData<void()>(6, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(8, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onViewArtistsClicked'
+        QtMocHelpers::SlotData<void()>(9, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onEditAccountClicked'
+        QtMocHelpers::SlotData<void()>(10, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onUpdatePlaylistClicked'
+        QtMocHelpers::SlotData<void()>(11, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onRemoveSongClicked'
+        QtMocHelpers::SlotData<void()>(12, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onSongInPlaylistSelected'
+        QtMocHelpers::SlotData<void(QListWidgetItem *)>(13, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 6, 7 },
+        }}),
+        // Slot 'onAllSongsItemClicked'
+        QtMocHelpers::SlotData<void(QListWidgetItem *)>(14, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 6, 7 },
+        }}),
+        // Slot 'onSearchTextChanged'
+        QtMocHelpers::SlotData<void(const QString &)>(15, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::QString, 16 },
+        }}),
+        // Slot 'onGenreFilterChanged'
+        QtMocHelpers::SlotData<void(int)>(17, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 18 },
+        }}),
+        // Slot 'onYearFilterChanged'
+        QtMocHelpers::SlotData<void(int)>(19, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 18 },
+        }}),
+        // Slot 'onClearFilterClicked'
+        QtMocHelpers::SlotData<void()>(20, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -84,12 +130,21 @@ void ListenerDashboard::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 0: _t->onLogoutClicked(); break;
         case 1: _t->onCreatePlaylistClicked(); break;
         case 2: _t->onDeletePlaylistClicked(); break;
-        case 3: _t->onPlaylistSelected(); break;
+        case 3: _t->onPlaylistSelected((*reinterpret_cast<std::add_pointer_t<QListWidgetItem*>>(_a[1]))); break;
         case 4: _t->onAddSongsClicked(); break;
+        case 5: _t->onViewArtistsClicked(); break;
+        case 6: _t->onEditAccountClicked(); break;
+        case 7: _t->onUpdatePlaylistClicked(); break;
+        case 8: _t->onRemoveSongClicked(); break;
+        case 9: _t->onSongInPlaylistSelected((*reinterpret_cast<std::add_pointer_t<QListWidgetItem*>>(_a[1]))); break;
+        case 10: _t->onAllSongsItemClicked((*reinterpret_cast<std::add_pointer_t<QListWidgetItem*>>(_a[1]))); break;
+        case 11: _t->onSearchTextChanged((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1]))); break;
+        case 12: _t->onGenreFilterChanged((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        case 13: _t->onYearFilterChanged((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        case 14: _t->onClearFilterClicked(); break;
         default: ;
         }
     }
-    (void)_a;
 }
 
 const QMetaObject *ListenerDashboard::metaObject() const
@@ -111,14 +166,14 @@ int ListenerDashboard::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 15)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 15;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 15)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 5;
+        _id -= 15;
     }
     return _id;
 }

@@ -24,6 +24,11 @@ public:
     std::vector<Song> filterSongsByGenre(const std::string& genre) const;
     std::vector<Song> filterSongsByYear(int year) const;
     bool songExists(int id) const;
+    void loadFromFile();
+    void saveToFile();
+    void reload();
+    int getNextId() const { return nextId; }
+    void setNextId(int id) { nextId = id; }
 };
 
 #endif

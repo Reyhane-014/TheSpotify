@@ -1,17 +1,59 @@
-#include "ArtistManager.h"
+#include "artistmanager.h"
+#include "datamanager.h"
 
-ArtistManager::ArtistManager() {}
+ArtistManager::ArtistManager() : nextId(1)
+{
+    loadFromFile();
+}
+
+void ArtistManager::reload()
+{
+    loadFromFile();
+}
+
+void ArtistManager::loadFromFile()
+{
+    DataManager* dm = DataManager::getInstance();
+    artists = dm->loadArtists();
+    nextId = 1;
+    for (const auto& a : artists) {
+        if (a.getId() >= nextId) {
+            nextId = a.getId() + 1;
+        }
+    }
+}
+
+void ArtistManager::saveToFile()
+{
+    DataManager* dm = DataManager::getInstance();
+    dm->saveArtists(artists);
+}
 
 int ArtistManager::saveArtist(const Artist& artist)
 {
     for (int i = 0; i < (int)artists.size(); i++) {
-        if (artists[i].getId() == artist.getId()) {
+        if (artists[i].getId() == artist.getId() && artist.getId() != 0) {
             artists[i] = artist;
+            saveToFile();
             return artists[i].getId();
         }
     }
-    artists.push_back(artist);
-    return artist.getId();
+
+    int newId = artist.getId();
+    if (newId == 0 || artistExists(newId)) {
+        newId = nextId++;
+    }
+
+    Artist artistToSave(newId, artist.getUsername(), artist.getPassword(),
+                        artist.getFullName(), artist.getBio());
+    const std::vector<int>& albumIds = artist.getAlbumIds();
+    for (int id : albumIds) {
+        artistToSave.addAlbum(id);
+    }
+
+    artists.push_back(artistToSave);
+    saveToFile();
+    return artistToSave.getId();
 }
 
 bool ArtistManager::removeArtist(int id)
@@ -19,6 +61,7 @@ bool ArtistManager::removeArtist(int id)
     for (int i = 0; i < (int)artists.size(); i++) {
         if (artists[i].getId() == id) {
             artists.erase(artists.begin() + i);
+            saveToFile();
             return true;
         }
     }
@@ -63,4 +106,14 @@ bool ArtistManager::artistExists(int id) const
 int ArtistManager::getArtistCount() const
 {
     return (int)artists.size();
+}
+
+int ArtistManager::getNextId() const
+{
+    return nextId;
+}
+
+void ArtistManager::setNextId(int id)
+{
+    nextId = id;
 }

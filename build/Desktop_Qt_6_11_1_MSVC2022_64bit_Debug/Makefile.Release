@@ -50,7 +50,9 @@ OBJECTS_DIR   = release
 
 ####### Files
 
-SOURCES       = ..\..\main.cpp \
+SOURCES       = ..\..\GUI\editaccountwindow.cpp \
+		..\..\GUI\editsongdialog.cpp \
+		..\..\main.cpp \
 		..\..\GUI\loginwindow.cpp \
 		..\..\GUI\registerwindow.cpp \
 		..\..\GUI\artistdashboard.cpp \
@@ -64,16 +66,22 @@ SOURCES       = ..\..\main.cpp \
 		..\..\Sources\repositories\albummanager.cpp \
 		..\..\Sources\repositories\playlistmanager.cpp \
 		..\..\Sources\repositories\songmanager.cpp \
+		..\..\Sources\repositories\datamanager.cpp \
+		..\..\Sources\utils\filehelper.cpp \
 		..\..\Sources\entities\account.cpp \
 		..\..\Sources\entities\artist.cpp \
 		..\..\Sources\entities\listener.cpp \
 		..\..\Sources\entities\album.cpp \
 		..\..\Sources\entities\playlist.cpp \
-		..\..\Sources\entities\song.cpp release\moc_loginwindow.cpp \
+		..\..\Sources\entities\song.cpp release\moc_editaccountwindow.cpp \
+		release\moc_editsongdialog.cpp \
+		release\moc_loginwindow.cpp \
 		release\moc_registerwindow.cpp \
 		release\moc_artistdashboard.cpp \
 		release\moc_listenerdashboard.cpp
-OBJECTS       = release\main.obj \
+OBJECTS       = release\editaccountwindow.obj \
+		release\editsongdialog.obj \
+		release\main.obj \
 		release\loginwindow.obj \
 		release\registerwindow.obj \
 		release\artistdashboard.obj \
@@ -87,18 +95,24 @@ OBJECTS       = release\main.obj \
 		release\albummanager.obj \
 		release\playlistmanager.obj \
 		release\songmanager.obj \
+		release\datamanager.obj \
+		release\filehelper.obj \
 		release\account.obj \
 		release\artist.obj \
 		release\listener.obj \
 		release\album.obj \
 		release\playlist.obj \
 		release\song.obj \
+		release\moc_editaccountwindow.obj \
+		release\moc_editsongdialog.obj \
 		release\moc_loginwindow.obj \
 		release\moc_registerwindow.obj \
 		release\moc_artistdashboard.obj \
 		release\moc_listenerdashboard.obj
 
-DIST          =  ..\..\GUI\loginwindow.h \
+DIST          =  ..\..\GUI\editaccountwindow.h \
+		..\..\GUI\editsongdialog.h \
+		..\..\GUI\loginwindow.h \
 		..\..\GUI\registerwindow.h \
 		..\..\GUI\artistdashboard.h \
 		..\..\GUI\listenerdashboard.h \
@@ -111,12 +125,16 @@ DIST          =  ..\..\GUI\loginwindow.h \
 		..\..\Sources\repositories\albummanager.h \
 		..\..\Sources\repositories\playlistmanager.h \
 		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\repositories\datamanager.h \
+		..\..\Sources\utils\filehelper.h \
 		..\..\Sources\entities\account.h \
 		..\..\Sources\entities\artist.h \
 		..\..\Sources\entities\listener.h \
 		..\..\Sources\entities\album.h \
 		..\..\Sources\entities\playlist.h \
-		..\..\Sources\entities\song.h ..\..\main.cpp \
+		..\..\Sources\entities\song.h ..\..\GUI\editaccountwindow.cpp \
+		..\..\GUI\editsongdialog.cpp \
+		..\..\main.cpp \
 		..\..\GUI\loginwindow.cpp \
 		..\..\GUI\registerwindow.cpp \
 		..\..\GUI\artistdashboard.cpp \
@@ -130,6 +148,8 @@ DIST          =  ..\..\GUI\loginwindow.h \
 		..\..\Sources\repositories\albummanager.cpp \
 		..\..\Sources\repositories\playlistmanager.cpp \
 		..\..\Sources\repositories\songmanager.cpp \
+		..\..\Sources\repositories\datamanager.cpp \
+		..\..\Sources\utils\filehelper.cpp \
 		..\..\Sources\entities\account.cpp \
 		..\..\Sources\entities\artist.cpp \
 		..\..\Sources\entities\listener.cpp \
@@ -201,6 +221,26 @@ DESTDIR_TARGET = release\TheSpotify.exe
 <<
 
 {..\..\Sources\services}.c{release\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{..\..\Sources\utils}.cpp{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{..\..\Sources\utils}.cc{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{..\..\Sources\utils}.cxx{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{..\..\Sources\utils}.c{release\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
@@ -290,9 +330,9 @@ DESTDIR_TARGET = release\TheSpotify.exe
 first: all
 all: Makefile.Release  release\TheSpotify.exe
 
-release\TheSpotify.exe: C:\Qt\6.11.1\msvc2022_64\lib\Qt6Widgets.lib C:\Qt\6.11.1\msvc2022_64\lib\Qt6Gui.lib C:\Qt\6.11.1\msvc2022_64\lib\Qt6Core.lib C:\Qt\6.11.1\msvc2022_64\lib\Qt6EntryPoint.lib ui_loginwindow.h ui_registerwindow.h ui_artistdashboard.h ui_listenerdashboard.h $(OBJECTS) 
+release\TheSpotify.exe: C:\Qt\6.11.1\msvc2022_64\lib\Qt6Widgets.lib C:\Qt\6.11.1\msvc2022_64\lib\Qt6Gui.lib C:\Qt\6.11.1\msvc2022_64\lib\Qt6Core.lib C:\Qt\6.11.1\msvc2022_64\lib\Qt6EntryPoint.lib ui_editaccountwindow.h ui_editsongdialog.h ui_loginwindow.h ui_registerwindow.h ui_artistdashboard.h ui_listenerdashboard.h $(OBJECTS) 
 	$(LINKER) $(LFLAGS) /MANIFEST:embed /OUT:$(DESTDIR_TARGET) @<<
-release\main.obj release\loginwindow.obj release\registerwindow.obj release\artistdashboard.obj release\listenerdashboard.obj release\authmanager.obj release\artisthandler.obj release\listenerhandler.obj release\accountmanager.obj release\artistmanager.obj release\listenermanager.obj release\albummanager.obj release\playlistmanager.obj release\songmanager.obj release\account.obj release\artist.obj release\listener.obj release\album.obj release\playlist.obj release\song.obj release\moc_loginwindow.obj release\moc_registerwindow.obj release\moc_artistdashboard.obj release\moc_listenerdashboard.obj
+release\editaccountwindow.obj release\editsongdialog.obj release\main.obj release\loginwindow.obj release\registerwindow.obj release\artistdashboard.obj release\listenerdashboard.obj release\authmanager.obj release\artisthandler.obj release\listenerhandler.obj release\accountmanager.obj release\artistmanager.obj release\listenermanager.obj release\albummanager.obj release\playlistmanager.obj release\songmanager.obj release\datamanager.obj release\filehelper.obj release\account.obj release\artist.obj release\listener.obj release\album.obj release\playlist.obj release\song.obj release\moc_editaccountwindow.obj release\moc_editsongdialog.obj release\moc_loginwindow.obj release\moc_registerwindow.obj release\moc_artistdashboard.obj release\moc_listenerdashboard.obj
 $(LIBS)
 <<
 
@@ -302,10 +342,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) TheSpotify.zip $(SOURCES) $(DIST) ..\..\TheSpotify.pro C:\Qt\6.11.1\msvc2022_64\mkspecs\features\spec_pre.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\common\msvc-sanitize.conf C:\Qt\6.11.1\msvc2022_64\mkspecs\common\windows-desktop.conf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\win32\windows_vulkan_sdk.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\common\windows-vulkan.conf C:\Qt\6.11.1\msvc2022_64\mkspecs\common\msvc-desktop.conf C:\Qt\6.11.1\msvc2022_64\mkspecs\qconfig.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_ext_freetype.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_ext_libjpeg.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_ext_libpng.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_ext_openxr_loader.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3danimation.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3danimation_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dcore.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dcore_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dextras.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dextras_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dinput.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dinput_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dlogic.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dlogic_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickanimation.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickextras.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickextras_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickinput.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquicklogic.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquicklogic_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickrender.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickscene2d.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickscene3d.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickscene3d_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3drender.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3drender_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_activeqt.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_activeqt_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_canvaspainter.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_canvaspainter_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_charts.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_charts_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_chartsqml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_chartsqml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_connectivity_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_core.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_core5compat.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_core5compat_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_datavisualization.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_datavisualization_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_datavisualizationqml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_datavisualizationqml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_entrypoint_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_fb_support_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_ffmpegmediapluginimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_freetype_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_graphs.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_graphs_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_graphswidgets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_graphswidgets_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_grpc.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_grpc_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_grpcquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_grpcquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_harfbuzz_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_help.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_httpserver.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_httpserver_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_jpeg_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_jsonrpc_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsanimation.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsanimation_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsplatform.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsplatform_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsqmlmodels.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labssettings.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labssettings_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labssharedimage.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labssharedimage_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsstylekit.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsstylekit_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsstylekitimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsstylekitimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labssynchronizer.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labssynchronizer_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_languageserver_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_linguist.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_location.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_lottie.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_lottie_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_lottievectorimagegenerator_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_lottievectorimagehelpers.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_lottievectorimagehelpers_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_multimediaquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_multimediatestlibprivate_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_network.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_networkauth.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_networkauth_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_openapicommon.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_openglwidgets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_png_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_positioningquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_positioningquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobuf.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobuf_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufqtcoretypes.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufqtcoretypes_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufqtguitypes.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufqtguitypes_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufwellknowntypes.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufwellknowntypes_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qdoccatch_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qdoccatchconversions_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qdoccatchgenerators_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlassetdownloader_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlcompiler.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlcore.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlcore_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmldom_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlformat_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlintegration.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmllocalstorage.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlls_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlmeta.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlmeta_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlmodels.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlmodels_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlnetwork.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlnetwork_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmltoolingsettings_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmltyperegistrar_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlworkerscript.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3d.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3d_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dassetimport.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dassetimport_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dassetutils.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dassetutils_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3deffects.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dglslparser_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dhelpers.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dhelpers_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dhelpersimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dhelpersimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3diblbaker.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3diblbaker_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dparticleeffects.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dparticles.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dparticles_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dphysics.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dphysics_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dphysicshelpers.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dphysicshelpers_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3druntimerender.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3druntimerender_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dspatialaudio_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dutils.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dutils_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dxr.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dxr_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2basic.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2basic_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2basicstyleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2basicstyleimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2fluentwinui3styleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2fluentwinui3styleimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2fusion.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2fusion_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2fusionstyleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2fusionstyleimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2imagine.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2imagine_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2imaginestyleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2material.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2material_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2materialstyleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2materialstyleimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2universal.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2universal_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2universalstyleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2universalstyleimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2windowsstyleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrolstestutilsprivate_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickdialogs2.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickeffects.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickeffects_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicklayouts.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicklayouts_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickshapes.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickshapes_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickshapesdesignhelpers_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktemplates2.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktestutilsprivate_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktimeline.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktimeline_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktimelineblendtrees.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktimelineblendtrees_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickvectorimage.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickvectorimage_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickvectorimagegenerator_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickvectorimagehelpers.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickvectorimagehelpers_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_remoteobjects.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_remoteobjects_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_remoteobjectsqml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_remoteobjectsqml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_repparser.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_scxml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_scxml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_scxmlglobal_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_scxmlqml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_scxmlqml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_sensorsquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_sensorsquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_serialbus.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_serialbus_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_shadertools.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_shadertools_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_spatialaudio.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_spatialaudio_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_statemachine.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_statemachine_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_statemachineqml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_statemachineqml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_svgwidgets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_tasktree.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_testinternals_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_texttospeech.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_texttospeech_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_tools_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_virtualkeyboard.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_virtualkeyboard_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_virtualkeyboardqml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_virtualkeyboardqml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_virtualkeyboardsettings.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_virtualkeyboardsettings_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webchannelquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webchannelquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webview.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webview_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webviewquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webviewquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\features\qt_functions.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\qt_config.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\win32-msvc\qmake.conf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\spec_post.prf .qmake.stash C:\Qt\6.11.1\msvc2022_64\mkspecs\features\exclusive_builds.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\common\msvc-version.conf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\toolchain.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\default_pre.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\win32\default_pre.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\resolve_config.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\default_post.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\build_pass.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\qml_debug.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\precompile_header.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\warn_on.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\permissions.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\qt.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\resources_functions.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\resources.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\moc.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\win32\opengl.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\uic.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\qmake_use.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\file_copies.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\win32\windows.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\testcase_targets.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\exceptions.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\yacc.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\lex.prf ..\..\TheSpotify.pro C:\Qt\6.11.1\msvc2022_64\lib\Qt6Widgets.prl C:\Qt\6.11.1\msvc2022_64\lib\Qt6Gui.prl C:\Qt\6.11.1\msvc2022_64\lib\Qt6Core.prl C:\Qt\6.11.1\msvc2022_64\lib\Qt6EntryPoint.prl    C:\Qt\6.11.1\msvc2022_64\mkspecs\features\data\dummy.cpp ..\..\GUI\loginwindow.h ..\..\GUI\registerwindow.h ..\..\GUI\artistdashboard.h ..\..\GUI\listenerdashboard.h ..\..\Sources\services\authmanager.h ..\..\Sources\services\artisthandler.h ..\..\Sources\services\listenerhandler.h ..\..\Sources\repositories\accountmanager.h ..\..\Sources\repositories\artistmanager.h ..\..\Sources\repositories\listenermanager.h ..\..\Sources\repositories\albummanager.h ..\..\Sources\repositories\playlistmanager.h ..\..\Sources\repositories\songmanager.h ..\..\Sources\entities\account.h ..\..\Sources\entities\artist.h ..\..\Sources\entities\listener.h ..\..\Sources\entities\album.h ..\..\Sources\entities\playlist.h ..\..\Sources\entities\song.h  ..\..\main.cpp ..\..\GUI\loginwindow.cpp ..\..\GUI\registerwindow.cpp ..\..\GUI\artistdashboard.cpp ..\..\GUI\listenerdashboard.cpp ..\..\Sources\services\authmanager.cpp ..\..\Sources\services\artisthandler.cpp ..\..\Sources\services\listenerhandler.cpp ..\..\Sources\repositories\accountmanager.cpp ..\..\Sources\repositories\artistmanager.cpp ..\..\Sources\repositories\listenermanager.cpp ..\..\Sources\repositories\albummanager.cpp ..\..\Sources\repositories\playlistmanager.cpp ..\..\Sources\repositories\songmanager.cpp ..\..\Sources\entities\account.cpp ..\..\Sources\entities\artist.cpp ..\..\Sources\entities\listener.cpp ..\..\Sources\entities\album.cpp ..\..\Sources\entities\playlist.cpp ..\..\Sources\entities\song.cpp ..\..\GUI\loginwindow.ui ..\..\GUI\registerwindow.ui ..\..\GUI\artistdashboard.ui ..\..\GUI\listenerdashboard.ui    
+	$(ZIP) TheSpotify.zip $(SOURCES) $(DIST) ..\..\TheSpotify.pro C:\Qt\6.11.1\msvc2022_64\mkspecs\features\spec_pre.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\common\msvc-sanitize.conf C:\Qt\6.11.1\msvc2022_64\mkspecs\common\windows-desktop.conf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\win32\windows_vulkan_sdk.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\common\windows-vulkan.conf C:\Qt\6.11.1\msvc2022_64\mkspecs\common\msvc-desktop.conf C:\Qt\6.11.1\msvc2022_64\mkspecs\qconfig.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_ext_freetype.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_ext_libjpeg.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_ext_libpng.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_ext_openxr_loader.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3danimation.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3danimation_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dcore.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dcore_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dextras.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dextras_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dinput.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dinput_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dlogic.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dlogic_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickanimation.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickextras.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickextras_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickinput.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquicklogic.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquicklogic_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickrender.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickscene2d.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickscene3d.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3dquickscene3d_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3drender.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_3drender_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_activeqt.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_activeqt_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_canvaspainter.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_canvaspainter_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_charts.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_charts_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_chartsqml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_chartsqml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_connectivity_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_core.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_core5compat.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_core5compat_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_datavisualization.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_datavisualization_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_datavisualizationqml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_datavisualizationqml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_entrypoint_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_fb_support_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_ffmpegmediapluginimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_freetype_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_graphs.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_graphs_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_graphswidgets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_graphswidgets_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_grpc.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_grpc_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_grpcquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_grpcquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_harfbuzz_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_help.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_httpserver.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_httpserver_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_jpeg_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_jsonrpc_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsanimation.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsanimation_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsplatform.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsplatform_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsqmlmodels.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labssettings.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labssettings_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labssharedimage.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labssharedimage_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsstylekit.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsstylekit_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsstylekitimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labsstylekitimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labssynchronizer.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labssynchronizer_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_languageserver_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_linguist.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_location.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_lottie.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_lottie_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_lottievectorimagegenerator_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_lottievectorimagehelpers.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_lottievectorimagehelpers_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_multimediaquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_multimediatestlibprivate_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_network.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_networkauth.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_networkauth_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_openapicommon.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_openglwidgets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_png_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_positioningquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_positioningquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobuf.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobuf_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufqtcoretypes.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufqtcoretypes_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufqtguitypes.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufqtguitypes_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufwellknowntypes.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_protobufwellknowntypes_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qdoccatch_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qdoccatchconversions_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qdoccatchgenerators_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlassetdownloader_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlcompiler.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlcore.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlcore_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmldom_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlformat_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlintegration.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmllocalstorage.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlls_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlmeta.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlmeta_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlmodels.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlmodels_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlnetwork.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlnetwork_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmltoolingsettings_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmltyperegistrar_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlworkerscript.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3d.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3d_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dassetimport.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dassetimport_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dassetutils.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dassetutils_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3deffects.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dglslparser_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dhelpers.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dhelpers_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dhelpersimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dhelpersimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3diblbaker.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3diblbaker_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dparticleeffects.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dparticles.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dparticles_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dphysics.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dphysics_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dphysicshelpers.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dphysicshelpers_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3druntimerender.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3druntimerender_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dspatialaudio_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dutils.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dutils_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dxr.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick3dxr_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2basic.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2basic_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2basicstyleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2basicstyleimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2fluentwinui3styleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2fluentwinui3styleimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2fusion.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2fusion_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2fusionstyleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2fusionstyleimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2imagine.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2imagine_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2imaginestyleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2material.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2material_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2materialstyleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2materialstyleimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2universal.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2universal_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2universalstyleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2universalstyleimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrols2windowsstyleimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickcontrolstestutilsprivate_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickdialogs2.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickeffects.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickeffects_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicklayouts.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicklayouts_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickshapes.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickshapes_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickshapesdesignhelpers_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktemplates2.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktestutilsprivate_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktimeline.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktimeline_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktimelineblendtrees.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quicktimelineblendtrees_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickvectorimage.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickvectorimage_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickvectorimagegenerator_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickvectorimagehelpers.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickvectorimagehelpers_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_remoteobjects.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_remoteobjects_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_remoteobjectsqml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_remoteobjectsqml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_repparser.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_scxml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_scxml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_scxmlglobal_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_scxmlqml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_scxmlqml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_sensorsquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_sensorsquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_serialbus.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_serialbus_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_shadertools.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_shadertools_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_spatialaudio.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_spatialaudio_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_statemachine.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_statemachine_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_statemachineqml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_statemachineqml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_svgwidgets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_tasktree.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_testinternals_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_texttospeech.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_texttospeech_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_tools_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_virtualkeyboard.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_virtualkeyboard_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_virtualkeyboardqml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_virtualkeyboardqml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_virtualkeyboardsettings.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_virtualkeyboardsettings_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webchannelquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webchannelquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webview.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webview_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webviewquick.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_webviewquick_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\modules\qt_lib_zlib_private.pri C:\Qt\6.11.1\msvc2022_64\mkspecs\features\qt_functions.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\qt_config.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\win32-msvc\qmake.conf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\spec_post.prf .qmake.stash C:\Qt\6.11.1\msvc2022_64\mkspecs\features\exclusive_builds.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\common\msvc-version.conf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\toolchain.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\default_pre.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\win32\default_pre.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\resolve_config.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\default_post.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\build_pass.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\qml_debug.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\precompile_header.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\warn_on.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\permissions.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\qt.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\resources_functions.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\resources.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\moc.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\win32\opengl.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\uic.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\qmake_use.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\file_copies.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\win32\windows.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\testcase_targets.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\exceptions.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\yacc.prf C:\Qt\6.11.1\msvc2022_64\mkspecs\features\lex.prf ..\..\TheSpotify.pro C:\Qt\6.11.1\msvc2022_64\lib\Qt6Widgets.prl C:\Qt\6.11.1\msvc2022_64\lib\Qt6Gui.prl C:\Qt\6.11.1\msvc2022_64\lib\Qt6Core.prl C:\Qt\6.11.1\msvc2022_64\lib\Qt6EntryPoint.prl    C:\Qt\6.11.1\msvc2022_64\mkspecs\features\data\dummy.cpp ..\..\GUI\editaccountwindow.h ..\..\GUI\editsongdialog.h ..\..\GUI\loginwindow.h ..\..\GUI\registerwindow.h ..\..\GUI\artistdashboard.h ..\..\GUI\listenerdashboard.h ..\..\Sources\services\authmanager.h ..\..\Sources\services\artisthandler.h ..\..\Sources\services\listenerhandler.h ..\..\Sources\repositories\accountmanager.h ..\..\Sources\repositories\artistmanager.h ..\..\Sources\repositories\listenermanager.h ..\..\Sources\repositories\albummanager.h ..\..\Sources\repositories\playlistmanager.h ..\..\Sources\repositories\songmanager.h ..\..\Sources\repositories\datamanager.h ..\..\Sources\utils\filehelper.h ..\..\Sources\entities\account.h ..\..\Sources\entities\artist.h ..\..\Sources\entities\listener.h ..\..\Sources\entities\album.h ..\..\Sources\entities\playlist.h ..\..\Sources\entities\song.h  ..\..\GUI\editaccountwindow.cpp ..\..\GUI\editsongdialog.cpp ..\..\main.cpp ..\..\GUI\loginwindow.cpp ..\..\GUI\registerwindow.cpp ..\..\GUI\artistdashboard.cpp ..\..\GUI\listenerdashboard.cpp ..\..\Sources\services\authmanager.cpp ..\..\Sources\services\artisthandler.cpp ..\..\Sources\services\listenerhandler.cpp ..\..\Sources\repositories\accountmanager.cpp ..\..\Sources\repositories\artistmanager.cpp ..\..\Sources\repositories\listenermanager.cpp ..\..\Sources\repositories\albummanager.cpp ..\..\Sources\repositories\playlistmanager.cpp ..\..\Sources\repositories\songmanager.cpp ..\..\Sources\repositories\datamanager.cpp ..\..\Sources\utils\filehelper.cpp ..\..\Sources\entities\account.cpp ..\..\Sources\entities\artist.cpp ..\..\Sources\entities\listener.cpp ..\..\Sources\entities\album.cpp ..\..\Sources\entities\playlist.cpp ..\..\Sources\entities\song.cpp ..\..\GUI\editaccountwindow.ui ..\..\GUI\editsongdialog.ui ..\..\GUI\loginwindow.ui ..\..\GUI\registerwindow.ui ..\..\GUI\artistdashboard.ui ..\..\GUI\listenerdashboard.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.obj release\loginwindow.obj release\registerwindow.obj release\artistdashboard.obj release\listenerdashboard.obj release\authmanager.obj release\artisthandler.obj release\listenerhandler.obj release\accountmanager.obj release\artistmanager.obj release\listenermanager.obj release\albummanager.obj release\playlistmanager.obj release\songmanager.obj release\account.obj release\artist.obj release\listener.obj release\album.obj release\playlist.obj release\song.obj release\moc_loginwindow.obj release\moc_registerwindow.obj release\moc_artistdashboard.obj release\moc_listenerdashboard.obj
+	-$(DEL_FILE) release\editaccountwindow.obj release\editsongdialog.obj release\main.obj release\loginwindow.obj release\registerwindow.obj release\artistdashboard.obj release\listenerdashboard.obj release\authmanager.obj release\artisthandler.obj release\listenerhandler.obj release\accountmanager.obj release\artistmanager.obj release\listenermanager.obj release\albummanager.obj release\playlistmanager.obj release\songmanager.obj release\datamanager.obj release\filehelper.obj release\account.obj release\artist.obj release\listener.obj release\album.obj release\playlist.obj release\song.obj release\moc_editaccountwindow.obj release\moc_editsongdialog.obj release\moc_loginwindow.obj release\moc_registerwindow.obj release\moc_artistdashboard.obj release\moc_listenerdashboard.obj
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -330,9 +370,443 @@ compiler_moc_predefs_clean:
 release\moc_predefs.h: C:\Qt\6.11.1\msvc2022_64\mkspecs\features\data\dummy.cpp
 	cl -BxC:\Qt\6.11.1\msvc2022_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -O2 -MD -std:c++17 -utf-8 -W3 -w34100 -w34189 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E C:\Qt\6.11.1\msvc2022_64\mkspecs\features\data\dummy.cpp 2>NUL >release\moc_predefs.h
 
-compiler_moc_header_make_all: release\moc_loginwindow.cpp release\moc_registerwindow.cpp release\moc_artistdashboard.cpp release\moc_listenerdashboard.cpp
+compiler_moc_header_make_all: release\moc_editaccountwindow.cpp release\moc_editsongdialog.cpp release\moc_loginwindow.cpp release\moc_registerwindow.cpp release\moc_artistdashboard.cpp release\moc_listenerdashboard.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) release\moc_loginwindow.cpp release\moc_registerwindow.cpp release\moc_artistdashboard.cpp release\moc_listenerdashboard.cpp
+	-$(DEL_FILE) release\moc_editaccountwindow.cpp release\moc_editsongdialog.cpp release\moc_loginwindow.cpp release\moc_registerwindow.cpp release\moc_artistdashboard.cpp release\moc_listenerdashboard.cpp
+release\moc_editaccountwindow.cpp: ..\..\GUI\editaccountwindow.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QMainWindow \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qmainwindow.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtwidgetsglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtguiglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtcoreglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtversionchecks.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtconfiginclude.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qconfig.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtcore-config.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtconfigmacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtdeprecationdefinitions.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtcoreexports.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtdeprecationmarkers.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtclasshelpermacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtpreprocessorsupport.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qassert.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtnoop.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtypes.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtversion.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsysinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlogging.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qflags.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcompare_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qatomic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qyieldcpu.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qconstructormacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdarwinhelpers.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qexceptionhandling.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qforeach.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qttypetraits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfunctionpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmalloc.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qminmax.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qnumeric.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20type_traits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qoverload.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qswap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtenvironmentvariables.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtresource.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qttranslation.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qversiontagging.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtgui-config.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtguiexports.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtwidgets-config.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtwidgetsexports.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qwidget.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qnamespace.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcompare.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstdlibdetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcomparehelpers.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtmetamacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfunctionaltools_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qwindowdefs_win.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobject.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstring.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qchar.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearray.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qrefcount.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qarraydata.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qpair.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qarraydatapointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qarraydataops.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontainertools_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qxptype_traits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q23type_traits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20functional.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20memory.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q17memory.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearrayalgorithms.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearrayview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringfwd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringalgorithms.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlatin1stringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qanystringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qutf8stringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringtokenizer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringconverter.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringconverter_base.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlist.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiterator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringlist.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qalgorithms.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20bit.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsimd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcoreevent.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbasictimer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qabstracteventdispatcher.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qeventloop.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdeadlinetimer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmetatype.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdatastream.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiodevicebase.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfloat16.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmath.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtformat_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiterable.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtaggedpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmetacontainer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontainerinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qscopeguard.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobject_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbindingstorage.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmargins.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcheckedint_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q23utility.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20utility.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qaction.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qkeysequence.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qicon.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsize.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpixmap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpaintdevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qrect.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qpoint.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qcolor.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qrgb.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qrgba64.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qshareddata.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qimage.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpixelformat.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtransform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpolygon.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qregion.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qspan.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20iterator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qline.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qvariant.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdebug.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtextstream.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qshareddata_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qset.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qhash.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qalloc.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpalette.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qbrush.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfont.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qendian.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfontmetrics.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfontinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfontvariableaxis.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qsizepolicy.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qcursor.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qbitmap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qevent.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiodevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qurl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qeventpoint.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvector2d.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvectornd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpointingdevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qinputdevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qscreen.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QList \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QObject \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QRect \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QSize \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QSizeF \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\QTransform \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qnativeinterface.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qscreen_platform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcoreapplication_platform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfuture.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfutureinterface.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmutex.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtsan_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qresultstore.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfuture_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qthreadpool.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qthread.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qrunnable.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qexception.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qpromise.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qinputmethod.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlocale.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication_platform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabwidget.h \
+		..\..\Sources\services\authmanager.h \
+		..\..\Sources\repositories\accountmanager.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\artistmanager.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\repositories\listenermanager.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\playlistmanager.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
+		release\moc_predefs.h \
+		C:\Qt\6.11.1\msvc2022_64\bin\moc.exe
+	C:\Qt\6.11.1\msvc2022_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Users/masso/OneDrive/Desktop/TheSpotify/build/Desktop_Qt_6_11_1_MSVC2022_64bit_Debug/release/moc_predefs.h -IC:/Qt/6.11.1/msvc2022_64/mkspecs/win32-msvc -IC:/Users/masso/OneDrive/Desktop/TheSpotify -IC:/Qt/6.11.1/msvc2022_64/include -IC:/Qt/6.11.1/msvc2022_64/include/QtWidgets -IC:/Qt/6.11.1/msvc2022_64/include/QtGui -IC:/Qt/6.11.1/msvc2022_64/include/QtCore -I. -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include" -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\ATLMFC\include" -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\VS\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\shared" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\winrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" ..\..\GUI\editaccountwindow.h -o release\moc_editaccountwindow.cpp
+
+release\moc_editsongdialog.cpp: ..\..\GUI\editsongdialog.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QDialog \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qdialog.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtwidgetsglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtguiglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtcoreglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtversionchecks.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtconfiginclude.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qconfig.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtcore-config.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtconfigmacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtdeprecationdefinitions.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtcoreexports.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtdeprecationmarkers.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtclasshelpermacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtpreprocessorsupport.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qassert.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtnoop.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtypes.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtversion.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsysinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlogging.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qflags.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcompare_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qatomic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qyieldcpu.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qconstructormacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdarwinhelpers.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qexceptionhandling.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qforeach.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qttypetraits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfunctionpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmalloc.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qminmax.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qnumeric.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20type_traits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qoverload.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qswap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtenvironmentvariables.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtresource.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qttranslation.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qversiontagging.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtgui-config.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtguiexports.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtwidgets-config.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtwidgetsexports.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qwidget.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qnamespace.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcompare.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstdlibdetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcomparehelpers.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtmetamacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfunctionaltools_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qwindowdefs_win.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobject.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstring.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qchar.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearray.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qrefcount.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qarraydata.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qpair.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qarraydatapointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qarraydataops.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontainertools_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qxptype_traits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q23type_traits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20functional.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20memory.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q17memory.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearrayalgorithms.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearrayview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringfwd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringalgorithms.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlatin1stringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qanystringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qutf8stringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringtokenizer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringconverter.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringconverter_base.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlist.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiterator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringlist.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qalgorithms.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20bit.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsimd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcoreevent.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbasictimer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qabstracteventdispatcher.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qeventloop.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdeadlinetimer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmetatype.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdatastream.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiodevicebase.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfloat16.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmath.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtformat_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiterable.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtaggedpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmetacontainer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontainerinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qscopeguard.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobject_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbindingstorage.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmargins.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcheckedint_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q23utility.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20utility.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qaction.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qkeysequence.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qicon.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsize.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpixmap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpaintdevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qrect.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qpoint.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qcolor.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qrgb.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qrgba64.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qshareddata.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qimage.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpixelformat.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtransform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpolygon.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qregion.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qspan.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20iterator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qline.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qvariant.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdebug.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtextstream.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qshareddata_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qset.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qhash.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qalloc.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpalette.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qbrush.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfont.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qendian.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfontmetrics.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfontinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfontvariableaxis.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qsizepolicy.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qcursor.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qbitmap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qevent.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiodevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qurl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qeventpoint.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvector2d.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvectornd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpointingdevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qinputdevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qscreen.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QList \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QObject \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QRect \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QSize \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QSizeF \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\QTransform \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qnativeinterface.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qscreen_platform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcoreapplication_platform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfuture.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfutureinterface.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmutex.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtsan_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qresultstore.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfuture_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qthreadpool.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qthread.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qrunnable.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qexception.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qpromise.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qinputmethod.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlocale.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication_platform.h \
+		..\..\Sources\entities\song.h \
+		..\..\Sources\services\artisthandler.h \
+		..\..\Sources\repositories\artistmanager.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\songmanager.h \
+		release\moc_predefs.h \
+		C:\Qt\6.11.1\msvc2022_64\bin\moc.exe
+	C:\Qt\6.11.1\msvc2022_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Users/masso/OneDrive/Desktop/TheSpotify/build/Desktop_Qt_6_11_1_MSVC2022_64bit_Debug/release/moc_predefs.h -IC:/Qt/6.11.1/msvc2022_64/mkspecs/win32-msvc -IC:/Users/masso/OneDrive/Desktop/TheSpotify -IC:/Qt/6.11.1/msvc2022_64/include -IC:/Qt/6.11.1/msvc2022_64/include/QtWidgets -IC:/Qt/6.11.1/msvc2022_64/include/QtGui -IC:/Qt/6.11.1/msvc2022_64/include/QtCore -I. -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include" -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\ATLMFC\include" -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\VS\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\shared" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\winrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" ..\..\GUI\editsongdialog.h -o release\moc_editsongdialog.cpp
+
 release\moc_loginwindow.cpp: ..\..\GUI\loginwindow.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QMainWindow \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qmainwindow.h \
@@ -537,12 +1011,18 @@ release\moc_loginwindow.cpp: ..\..\GUI\loginwindow.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication_platform.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabwidget.h \
 		..\..\Sources\services\authmanager.h \
-		..\..\Sources\repositories\AccountManager.h \
+		..\..\Sources\repositories\accountmanager.h \
 		..\..\Sources\entities\account.h \
-		..\..\Sources\repositories\ArtistManager.h \
+		..\..\Sources\repositories\artistmanager.h \
 		..\..\Sources\entities\artist.h \
-		..\..\Sources\repositories\ListenerManager.h \
+		..\..\Sources\repositories\listenermanager.h \
 		..\..\Sources\entities\listener.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\playlistmanager.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
 		release\moc_predefs.h \
 		C:\Qt\6.11.1\msvc2022_64\bin\moc.exe
 	C:\Qt\6.11.1\msvc2022_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Users/masso/OneDrive/Desktop/TheSpotify/build/Desktop_Qt_6_11_1_MSVC2022_64bit_Debug/release/moc_predefs.h -IC:/Qt/6.11.1/msvc2022_64/mkspecs/win32-msvc -IC:/Users/masso/OneDrive/Desktop/TheSpotify -IC:/Qt/6.11.1/msvc2022_64/include -IC:/Qt/6.11.1/msvc2022_64/include/QtWidgets -IC:/Qt/6.11.1/msvc2022_64/include/QtGui -IC:/Qt/6.11.1/msvc2022_64/include/QtCore -I. -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include" -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\ATLMFC\include" -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\VS\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\shared" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\winrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" ..\..\GUI\loginwindow.h -o release\moc_loginwindow.cpp
@@ -750,6 +1230,19 @@ release\moc_registerwindow.cpp: ..\..\GUI\registerwindow.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlocale.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication_platform.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabwidget.h \
+		..\..\Sources\services\authmanager.h \
+		..\..\Sources\repositories\accountmanager.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\artistmanager.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\repositories\listenermanager.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\playlistmanager.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
 		release\moc_predefs.h \
 		C:\Qt\6.11.1\msvc2022_64\bin\moc.exe
 	C:\Qt\6.11.1\msvc2022_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Users/masso/OneDrive/Desktop/TheSpotify/build/Desktop_Qt_6_11_1_MSVC2022_64bit_Debug/release/moc_predefs.h -IC:/Qt/6.11.1/msvc2022_64/mkspecs/win32-msvc -IC:/Users/masso/OneDrive/Desktop/TheSpotify -IC:/Qt/6.11.1/msvc2022_64/include -IC:/Qt/6.11.1/msvc2022_64/include/QtWidgets -IC:/Qt/6.11.1/msvc2022_64/include/QtGui -IC:/Qt/6.11.1/msvc2022_64/include/QtCore -I. -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include" -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\ATLMFC\include" -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\VS\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\shared" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\winrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" ..\..\GUI\registerwindow.h -o release\moc_registerwindow.cpp
@@ -957,6 +1450,32 @@ release\moc_artistdashboard.cpp: ..\..\GUI\artistdashboard.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlocale.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication_platform.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabwidget.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QListWidgetItem \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qlistwidget.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qlistview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qframe.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qstyleoption.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvalidator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qregularexpression.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qslider.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractslider.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qstyle.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabbar.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qrubberband.h \
+		..\..\Sources\services\artisthandler.h \
+		..\..\Sources\repositories\artistmanager.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
 		release\moc_predefs.h \
 		C:\Qt\6.11.1\msvc2022_64\bin\moc.exe
 	C:\Qt\6.11.1\msvc2022_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Users/masso/OneDrive/Desktop/TheSpotify/build/Desktop_Qt_6_11_1_MSVC2022_64bit_Debug/release/moc_predefs.h -IC:/Qt/6.11.1/msvc2022_64/mkspecs/win32-msvc -IC:/Users/masso/OneDrive/Desktop/TheSpotify -IC:/Qt/6.11.1/msvc2022_64/include -IC:/Qt/6.11.1/msvc2022_64/include/QtWidgets -IC:/Qt/6.11.1/msvc2022_64/include/QtGui -IC:/Qt/6.11.1/msvc2022_64/include/QtCore -I. -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include" -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\ATLMFC\include" -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\VS\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\shared" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\winrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" ..\..\GUI\artistdashboard.h -o release\moc_artistdashboard.cpp
@@ -1164,6 +1683,36 @@ release\moc_listenerdashboard.cpp: ..\..\GUI\listenerdashboard.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlocale.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication_platform.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabwidget.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QListWidgetItem \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qlistwidget.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qlistview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qframe.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qstyleoption.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvalidator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qregularexpression.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qslider.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractslider.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qstyle.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabbar.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qrubberband.h \
+		..\..\Sources\services\listenerhandler.h \
+		..\..\Sources\repositories\listenermanager.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\playlistmanager.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
+		..\..\Sources\repositories\artistmanager.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
 		release\moc_predefs.h \
 		C:\Qt\6.11.1\msvc2022_64\bin\moc.exe
 	C:\Qt\6.11.1\msvc2022_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Users/masso/OneDrive/Desktop/TheSpotify/build/Desktop_Qt_6_11_1_MSVC2022_64bit_Debug/release/moc_predefs.h -IC:/Qt/6.11.1/msvc2022_64/mkspecs/win32-msvc -IC:/Users/masso/OneDrive/Desktop/TheSpotify -IC:/Qt/6.11.1/msvc2022_64/include -IC:/Qt/6.11.1/msvc2022_64/include/QtWidgets -IC:/Qt/6.11.1/msvc2022_64/include/QtGui -IC:/Qt/6.11.1/msvc2022_64/include/QtCore -I. -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include" -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\ATLMFC\include" -I"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\VS\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\shared" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\winrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" ..\..\GUI\listenerdashboard.h -o release\moc_listenerdashboard.cpp
@@ -1172,9 +1721,17 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_loginwindow.h ui_registerwindow.h ui_artistdashboard.h ui_listenerdashboard.h
+compiler_uic_make_all: ui_editaccountwindow.h ui_editsongdialog.h ui_loginwindow.h ui_registerwindow.h ui_artistdashboard.h ui_listenerdashboard.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_loginwindow.h ui_registerwindow.h ui_artistdashboard.h ui_listenerdashboard.h
+	-$(DEL_FILE) ui_editaccountwindow.h ui_editsongdialog.h ui_loginwindow.h ui_registerwindow.h ui_artistdashboard.h ui_listenerdashboard.h
+ui_editaccountwindow.h: ..\..\GUI\editaccountwindow.ui \
+		C:\Qt\6.11.1\msvc2022_64\bin\uic.exe
+	C:\Qt\6.11.1\msvc2022_64\bin\uic.exe ..\..\GUI\editaccountwindow.ui -o ui_editaccountwindow.h
+
+ui_editsongdialog.h: ..\..\GUI\editsongdialog.ui \
+		C:\Qt\6.11.1\msvc2022_64\bin\uic.exe
+	C:\Qt\6.11.1\msvc2022_64\bin\uic.exe ..\..\GUI\editsongdialog.ui -o ui_editsongdialog.h
+
 ui_loginwindow.h: ..\..\GUI\loginwindow.ui \
 		C:\Qt\6.11.1\msvc2022_64\bin\uic.exe
 	C:\Qt\6.11.1\msvc2022_64\bin\uic.exe ..\..\GUI\loginwindow.ui -o ui_loginwindow.h
@@ -1202,6 +1759,443 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 
 ####### Compile
+
+release\editaccountwindow.obj: ..\..\GUI\editaccountwindow.cpp ..\..\GUI\editaccountwindow.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QMainWindow \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qmainwindow.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtwidgetsglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtguiglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtcoreglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtversionchecks.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtconfiginclude.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qconfig.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtcore-config.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtconfigmacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtdeprecationdefinitions.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtcoreexports.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtdeprecationmarkers.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtclasshelpermacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtpreprocessorsupport.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qassert.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtnoop.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtypes.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtversion.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsysinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlogging.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qflags.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcompare_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qatomic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qyieldcpu.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qconstructormacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdarwinhelpers.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qexceptionhandling.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qforeach.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qttypetraits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfunctionpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmalloc.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qminmax.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qnumeric.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20type_traits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qoverload.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qswap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtenvironmentvariables.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtresource.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qttranslation.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qversiontagging.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtgui-config.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtguiexports.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtwidgets-config.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtwidgetsexports.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qwidget.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qnamespace.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcompare.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstdlibdetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcomparehelpers.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtmetamacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfunctionaltools_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qwindowdefs_win.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobject.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstring.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qchar.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearray.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qrefcount.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qarraydata.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qpair.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qarraydatapointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qarraydataops.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontainertools_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qxptype_traits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q23type_traits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20functional.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20memory.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q17memory.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearrayalgorithms.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearrayview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringfwd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringalgorithms.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlatin1stringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qanystringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qutf8stringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringtokenizer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringconverter.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringconverter_base.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlist.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiterator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringlist.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qalgorithms.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20bit.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsimd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcoreevent.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbasictimer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qabstracteventdispatcher.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qeventloop.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdeadlinetimer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmetatype.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdatastream.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiodevicebase.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfloat16.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmath.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtformat_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiterable.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtaggedpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmetacontainer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontainerinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qscopeguard.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobject_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbindingstorage.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmargins.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcheckedint_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q23utility.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20utility.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qaction.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qkeysequence.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qicon.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsize.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpixmap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpaintdevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qrect.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qpoint.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qcolor.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qrgb.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qrgba64.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qshareddata.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qimage.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpixelformat.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtransform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpolygon.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qregion.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qspan.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20iterator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qline.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qvariant.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdebug.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtextstream.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qshareddata_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qset.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qhash.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qalloc.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpalette.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qbrush.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfont.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qendian.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfontmetrics.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfontinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfontvariableaxis.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qsizepolicy.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qcursor.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qbitmap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qevent.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiodevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qurl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qeventpoint.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvector2d.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvectornd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpointingdevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qinputdevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qscreen.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QList \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QObject \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QRect \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QSize \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QSizeF \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\QTransform \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qnativeinterface.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qscreen_platform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcoreapplication_platform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfuture.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfutureinterface.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmutex.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtsan_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qresultstore.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfuture_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qthreadpool.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qthread.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qrunnable.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qexception.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qpromise.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qinputmethod.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlocale.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication_platform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabwidget.h \
+		..\..\Sources\services\authmanager.h \
+		..\..\Sources\repositories\accountmanager.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\artistmanager.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\repositories\listenermanager.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\playlistmanager.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
+		ui_editaccountwindow.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QMessageBox \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qmessagebox.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qdialog.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qdialogbuttonbox.h
+
+release\editsongdialog.obj: ..\..\GUI\editsongdialog.cpp ..\..\GUI\editsongdialog.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QDialog \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qdialog.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtwidgetsglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtguiglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtcoreglobal.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtversionchecks.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtconfiginclude.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qconfig.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtcore-config.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtconfigmacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtdeprecationdefinitions.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcompilerdetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qprocessordetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsystemdetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtcoreexports.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtdeprecationmarkers.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtclasshelpermacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtpreprocessorsupport.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qassert.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtnoop.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtypes.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtversion.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtypeinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontainerfwd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsysinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlogging.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qflags.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcompare_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qatomic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbasicatomic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qatomic_cxx11.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qgenericatomic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qyieldcpu.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qconstructormacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdarwinhelpers.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qexceptionhandling.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qforeach.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qttypetraits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfunctionpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qglobalstatic.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmalloc.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qminmax.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qnumeric.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20type_traits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qoverload.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qswap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtenvironmentvariables.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtresource.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qttranslation.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qversiontagging.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtgui-config.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtguiexports.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtwidgets-config.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtwidgetsexports.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qwidget.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qwindowdefs.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobjectdefs.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qnamespace.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcompare.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstdlibdetection.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcomparehelpers.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtmetamacros.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobjectdefs_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfunctionaltools_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qwindowdefs_win.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobject.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstring.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qchar.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearray.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qrefcount.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qarraydata.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qpair.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qarraydatapointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qarraydataops.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontainertools_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qxptype_traits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q23type_traits.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20functional.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20memory.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q17memory.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearrayalgorithms.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearrayview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringfwd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringalgorithms.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlatin1stringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qanystringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qutf8stringview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringtokenizer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringbuilder.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringconverter.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringconverter_base.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlist.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qhashfunctions.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiterator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbytearraylist.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringlist.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qalgorithms.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20bit.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsimd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qstringmatcher.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcoreevent.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbasictimer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qabstracteventdispatcher.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qeventloop.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdeadlinetimer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmetatype.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdatastream.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiodevicebase.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qscopedpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfloat16.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmath.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtformat_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiterable.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtaggedpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmetacontainer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontainerinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qscopeguard.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qobject_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qbindingstorage.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmargins.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcheckedint_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q23utility.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20utility.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qaction.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qkeysequence.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qicon.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsize.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpixmap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpaintdevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qrect.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qpoint.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qcolor.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qrgb.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qrgba64.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qshareddata.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qimage.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpixelformat.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtransform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpolygon.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qregion.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qspan.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\q20iterator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qline.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qvariant.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qdebug.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtextstream.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcontiguouscache.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsharedpointer.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qsharedpointer_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qshareddata_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qset.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qhash.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qvarlengtharray.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qalloc.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpalette.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qbrush.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfont.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qendian.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfontmetrics.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfontinfo.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qfontvariableaxis.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qsizepolicy.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qcursor.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qbitmap.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qevent.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qiodevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qurl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qeventpoint.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvector2d.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvectornd.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpointingdevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qinputdevice.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qscreen.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QList \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QObject \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QRect \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QSize \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QSizeF \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\QTransform \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qnativeinterface.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qscreen_platform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcoreapplication.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qcoreapplication_platform.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfuture.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfutureinterface.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qmutex.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qtsan_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qresultstore.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qfuture_impl.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qthreadpool.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qthread.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qrunnable.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qexception.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qpromise.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qinputmethod.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlocale.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication_platform.h \
+		..\..\Sources\entities\song.h \
+		..\..\Sources\services\artisthandler.h \
+		..\..\Sources\repositories\artistmanager.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\songmanager.h \
+		ui_editsongdialog.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QMessageBox \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qmessagebox.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qdialogbuttonbox.h
 
 release\main.obj: ..\..\main.cpp C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QApplication \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qapplication.h \
@@ -1409,12 +2403,18 @@ release\main.obj: ..\..\main.cpp C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QApp
 		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qscreen_platform.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabwidget.h \
 		..\..\Sources\services\authmanager.h \
-		..\..\Sources\repositories\AccountManager.h \
+		..\..\Sources\repositories\accountmanager.h \
 		..\..\Sources\entities\account.h \
-		..\..\Sources\repositories\ArtistManager.h \
+		..\..\Sources\repositories\artistmanager.h \
 		..\..\Sources\entities\artist.h \
-		..\..\Sources\repositories\ListenerManager.h \
-		..\..\Sources\entities\listener.h
+		..\..\Sources\repositories\listenermanager.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\playlistmanager.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h
 
 release\loginwindow.obj: ..\..\GUI\loginwindow.cpp ..\..\GUI\loginwindow.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QMainWindow \
@@ -1620,16 +2620,42 @@ release\loginwindow.obj: ..\..\GUI\loginwindow.cpp ..\..\GUI\loginwindow.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication_platform.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabwidget.h \
 		..\..\Sources\services\authmanager.h \
-		..\..\Sources\repositories\AccountManager.h \
+		..\..\Sources\repositories\accountmanager.h \
 		..\..\Sources\entities\account.h \
-		..\..\Sources\repositories\ArtistManager.h \
+		..\..\Sources\repositories\artistmanager.h \
 		..\..\Sources\entities\artist.h \
-		..\..\Sources\repositories\ListenerManager.h \
+		..\..\Sources\repositories\listenermanager.h \
 		..\..\Sources\entities\listener.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\playlistmanager.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
 		ui_loginwindow.h \
 		..\..\GUI\registerwindow.h \
 		..\..\GUI\artistdashboard.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QListWidgetItem \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qlistwidget.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qlistview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qframe.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qstyleoption.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvalidator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qregularexpression.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qslider.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractslider.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qstyle.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabbar.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qrubberband.h \
+		..\..\Sources\services\artisthandler.h \
 		..\..\GUI\listenerdashboard.h \
+		..\..\Sources\services\listenerhandler.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QMessageBox \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qmessagebox.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qdialog.h \
@@ -1838,6 +2864,19 @@ release\registerwindow.obj: ..\..\GUI\registerwindow.cpp ..\..\GUI\registerwindo
 		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlocale.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication_platform.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabwidget.h \
+		..\..\Sources\services\authmanager.h \
+		..\..\Sources\repositories\accountmanager.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\artistmanager.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\repositories\listenermanager.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\playlistmanager.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
 		ui_registerwindow.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QMessageBox \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qmessagebox.h \
@@ -2047,7 +3086,54 @@ release\artistdashboard.obj: ..\..\GUI\artistdashboard.cpp ..\..\GUI\artistdashb
 		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlocale.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication_platform.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabwidget.h \
-		ui_artistdashboard.h
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QListWidgetItem \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qlistwidget.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qlistview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qframe.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qstyleoption.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvalidator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qregularexpression.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qslider.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractslider.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qstyle.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabbar.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qrubberband.h \
+		..\..\Sources\services\artisthandler.h \
+		..\..\Sources\repositories\artistmanager.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
+		ui_artistdashboard.h \
+		..\..\GUI\editaccountwindow.h \
+		..\..\Sources\services\authmanager.h \
+		..\..\Sources\repositories\accountmanager.h \
+		..\..\Sources\repositories\listenermanager.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\repositories\playlistmanager.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\GUI\editsongdialog.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QDialog \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qdialog.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QMessageBox \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qmessagebox.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qdialogbuttonbox.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QInputDialog \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qinputdialog.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qlineedit.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtextcursor.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtextdocument.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtextformat.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpen.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtextoption.h
 
 release\listenerdashboard.obj: ..\..\GUI\listenerdashboard.cpp ..\..\GUI\listenerdashboard.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QMainWindow \
@@ -2252,57 +3338,161 @@ release\listenerdashboard.obj: ..\..\GUI\listenerdashboard.cpp ..\..\GUI\listene
 		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qlocale.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qguiapplication_platform.h \
 		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabwidget.h \
-		ui_listenerdashboard.h
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QListWidgetItem \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qlistwidget.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qlistview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractitemview.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractscrollarea.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qframe.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qabstractitemmodel.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qitemselectionmodel.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractitemdelegate.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qstyleoption.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractspinbox.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qvalidator.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\qregularexpression.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qslider.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qabstractslider.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qstyle.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qtabbar.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qrubberband.h \
+		..\..\Sources\services\listenerhandler.h \
+		..\..\Sources\repositories\listenermanager.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\playlistmanager.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
+		..\..\Sources\repositories\artistmanager.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		ui_listenerdashboard.h \
+		..\..\GUI\editaccountwindow.h \
+		..\..\Sources\services\authmanager.h \
+		..\..\Sources\repositories\accountmanager.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QMessageBox \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qmessagebox.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qdialog.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qdialogbuttonbox.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\QInputDialog \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qinputdialog.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtWidgets\qlineedit.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtextcursor.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtextdocument.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtextformat.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qpen.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtGui\qtextoption.h \
+		C:\Qt\6.11.1\msvc2022_64\include\QtCore\QStringList
 
 release\authmanager.obj: ..\..\Sources\services\authmanager.cpp ..\..\Sources\services\authmanager.h \
-		..\..\Sources\repositories\AccountManager.h \
+		..\..\Sources\repositories\accountmanager.h \
 		..\..\Sources\entities\account.h \
-		..\..\Sources\repositories\ArtistManager.h \
+		..\..\Sources\repositories\artistmanager.h \
 		..\..\Sources\entities\artist.h \
-		..\..\Sources\repositories\ListenerManager.h \
-		..\..\Sources\entities\listener.h
+		..\..\Sources\repositories\listenermanager.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\playlistmanager.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
+		..\..\Sources\repositories\datamanager.h
 
 release\artisthandler.obj: ..\..\Sources\services\artisthandler.cpp ..\..\Sources\services\artisthandler.h \
-		..\..\Sources\repositories\ArtistManager.h \
+		..\..\Sources\repositories\artistmanager.h \
 		..\..\Sources\entities\artist.h \
 		..\..\Sources\entities\account.h \
-		..\..\Sources\repositories\AlbumManager.h \
+		..\..\Sources\repositories\albummanager.h \
 		..\..\Sources\entities\album.h \
-		..\..\Sources\repositories\SongManager.h \
-		..\..\Sources\entities\song.h
+		..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
+		..\..\Sources\repositories\datamanager.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\repositories\accountmanager.h
 
 release\listenerhandler.obj: ..\..\Sources\services\listenerhandler.cpp ..\..\Sources\services\listenerhandler.h \
-		..\..\Sources\repositories\ListenerManager.h \
+		..\..\Sources\repositories\listenermanager.h \
 		..\..\Sources\entities\listener.h \
 		..\..\Sources\entities\account.h \
-		..\..\Sources\repositories\PlaylistManager.h \
+		..\..\Sources\repositories\playlistmanager.h \
 		..\..\Sources\entities\playlist.h \
-		..\..\Sources\repositories\SongManager.h \
+		..\..\Sources\repositories\songmanager.h \
 		..\..\Sources\entities\song.h \
-		..\..\Sources\repositories\ArtistManager.h \
+		..\..\Sources\repositories\artistmanager.h \
 		..\..\Sources\entities\artist.h \
-		..\..\Sources\repositories\AlbumManager.h \
-		..\..\Sources\entities\album.h
+		..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\datamanager.h \
+		..\..\Sources\repositories\accountmanager.h
 
-release\accountmanager.obj: ..\..\Sources\repositories\accountmanager.cpp ..\..\Sources\repositories\AccountManager.h \
-		..\..\Sources\entities\account.h
-
-release\artistmanager.obj: ..\..\Sources\repositories\artistmanager.cpp ..\..\Sources\repositories\ArtistManager.h \
+release\accountmanager.obj: ..\..\Sources\repositories\accountmanager.cpp ..\..\Sources\repositories\accountmanager.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\datamanager.h \
 		..\..\Sources\entities\artist.h \
-		..\..\Sources\entities\account.h
-
-release\listenermanager.obj: ..\..\Sources\repositories\listenermanager.cpp ..\..\Sources\repositories\ListenerManager.h \
 		..\..\Sources\entities\listener.h \
-		..\..\Sources\entities\account.h
+		..\..\Sources\entities\album.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\entities\song.h
 
-release\albummanager.obj: ..\..\Sources\repositories\albummanager.cpp ..\..\Sources\repositories\AlbumManager.h \
-		..\..\Sources\entities\album.h
+release\artistmanager.obj: ..\..\Sources\repositories\artistmanager.cpp ..\..\Sources\repositories\artistmanager.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\datamanager.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\entities\song.h
 
-release\playlistmanager.obj: ..\..\Sources\repositories\playlistmanager.cpp ..\..\Sources\repositories\PlaylistManager.h \
+release\listenermanager.obj: ..\..\Sources\repositories\listenermanager.cpp ..\..\Sources\repositories\listenermanager.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\repositories\datamanager.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\entities\song.h
+
+release\albummanager.obj: ..\..\Sources\repositories\albummanager.cpp ..\..\Sources\repositories\albummanager.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\repositories\datamanager.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\entities\song.h
+
+release\playlistmanager.obj: ..\..\Sources\repositories\playlistmanager.cpp ..\..\Sources\repositories\playlistmanager.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\repositories\datamanager.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\entities\song.h
+
+release\songmanager.obj: ..\..\Sources\repositories\songmanager.cpp ..\..\Sources\repositories\songmanager.h \
+		..\..\Sources\entities\song.h \
+		..\..\Sources\repositories\datamanager.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\entities\album.h \
 		..\..\Sources\entities\playlist.h
 
-release\songmanager.obj: ..\..\Sources\repositories\songmanager.cpp ..\..\Sources\repositories\SongManager.h \
-		..\..\Sources\entities\song.h
+release\datamanager.obj: ..\..\Sources\repositories\datamanager.cpp ..\..\Sources\repositories\datamanager.h \
+		..\..\Sources\entities\account.h \
+		..\..\Sources\entities\artist.h \
+		..\..\Sources\entities\listener.h \
+		..\..\Sources\entities\album.h \
+		..\..\Sources\entities\playlist.h \
+		..\..\Sources\entities\song.h \
+		..\..\Sources\utils\filehelper.h
+
+release\filehelper.obj: ..\..\Sources\utils\filehelper.cpp ..\..\Sources\utils\filehelper.h
 
 release\account.obj: ..\..\Sources\entities\account.cpp ..\..\Sources\entities\account.h
 
@@ -2317,6 +3507,10 @@ release\album.obj: ..\..\Sources\entities\album.cpp ..\..\Sources\entities\album
 release\playlist.obj: ..\..\Sources\entities\playlist.cpp ..\..\Sources\entities\playlist.h
 
 release\song.obj: ..\..\Sources\entities\song.cpp ..\..\Sources\entities\song.h
+
+release\moc_editaccountwindow.obj: release\moc_editaccountwindow.cpp 
+
+release\moc_editsongdialog.obj: release\moc_editsongdialog.cpp 
 
 release\moc_loginwindow.obj: release\moc_loginwindow.cpp 
 

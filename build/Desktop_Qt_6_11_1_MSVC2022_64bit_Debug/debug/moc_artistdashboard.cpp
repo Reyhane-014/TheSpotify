@@ -44,7 +44,13 @@ template <> constexpr inline auto ArtistDashboard::qt_create_metaobjectdata<qt_m
         "onCreateAlbumClicked",
         "onCreateSongClicked",
         "onDeleteAlbumClicked",
-        "onAlbumSelected"
+        "onAlbumSelected",
+        "QListWidgetItem*",
+        "item",
+        "onSongItemClicked",
+        "onEditAccountClicked",
+        "onEditSongClicked",
+        "onDeleteSongClicked"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -57,7 +63,19 @@ template <> constexpr inline auto ArtistDashboard::qt_create_metaobjectdata<qt_m
         // Slot 'onDeleteAlbumClicked'
         QtMocHelpers::SlotData<void()>(5, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onAlbumSelected'
-        QtMocHelpers::SlotData<void()>(6, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void(QListWidgetItem *)>(6, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 7, 8 },
+        }}),
+        // Slot 'onSongItemClicked'
+        QtMocHelpers::SlotData<void(QListWidgetItem *)>(9, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 7, 8 },
+        }}),
+        // Slot 'onEditAccountClicked'
+        QtMocHelpers::SlotData<void()>(10, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onEditSongClicked'
+        QtMocHelpers::SlotData<void()>(11, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onDeleteSongClicked'
+        QtMocHelpers::SlotData<void()>(12, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -85,11 +103,14 @@ void ArtistDashboard::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 1: _t->onCreateAlbumClicked(); break;
         case 2: _t->onCreateSongClicked(); break;
         case 3: _t->onDeleteAlbumClicked(); break;
-        case 4: _t->onAlbumSelected(); break;
+        case 4: _t->onAlbumSelected((*reinterpret_cast<std::add_pointer_t<QListWidgetItem*>>(_a[1]))); break;
+        case 5: _t->onSongItemClicked((*reinterpret_cast<std::add_pointer_t<QListWidgetItem*>>(_a[1]))); break;
+        case 6: _t->onEditAccountClicked(); break;
+        case 7: _t->onEditSongClicked(); break;
+        case 8: _t->onDeleteSongClicked(); break;
         default: ;
         }
     }
-    (void)_a;
 }
 
 const QMetaObject *ArtistDashboard::metaObject() const
@@ -111,14 +132,14 @@ int ArtistDashboard::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 9;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 9)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 5;
+        _id -= 9;
     }
     return _id;
 }

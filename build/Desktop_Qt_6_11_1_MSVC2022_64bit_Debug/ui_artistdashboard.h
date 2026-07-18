@@ -38,12 +38,16 @@ public:
     QPushButton *createAlbumBtn;
     QPushButton *createSongBtn;
     QPushButton *deleteAlbumBtn;
+    QPushButton *editSongBtn;
+    QPushButton *deleteSongBtn;
+    QPushButton *editAccountBtn;
     QSpacerItem *toolbarSpacer;
+    QHBoxLayout *mainLayout;
     QGroupBox *albumsGroup;
-    QHBoxLayout *albumsLayout;
+    QVBoxLayout *albumsLayout;
     QListWidget *albumsList;
     QGroupBox *songsGroup;
-    QHBoxLayout *songsLayout;
+    QVBoxLayout *songsLayout;
     QListWidget *songsList;
     QLabel *errorLabel;
     QMenuBar *menubar;
@@ -53,7 +57,7 @@ public:
     {
         if (ArtistDashboard->objectName().isEmpty())
             ArtistDashboard->setObjectName("ArtistDashboard");
-        ArtistDashboard->resize(800, 600);
+        ArtistDashboard->resize(900, 600);
         ArtistDashboard->setStyleSheet(QString::fromUtf8("\n"
 "    QMainWindow {\n"
 "        background-color: #F8F9FA;\n"
@@ -167,6 +171,68 @@ public:
 
         toolbarLayout->addWidget(deleteAlbumBtn);
 
+        editSongBtn = new QPushButton(centralwidget);
+        editSongBtn->setObjectName("editSongBtn");
+        editSongBtn->setEnabled(false);
+        editSongBtn->setStyleSheet(QString::fromUtf8("\n"
+"          QPushButton {\n"
+"              background-color: #0F3460;\n"
+"              border: none;\n"
+"              border-radius: 8px;\n"
+"              color: #FFFFFF;\n"
+"              font-family: \"Segoe UI\", sans-serif;\n"
+"              font-size: 13px;\n"
+"              font-weight: 600;\n"
+"              padding: 8px 16px;\n"
+"          }\n"
+"          QPushButton:hover {\n"
+"              background-color: #16213E;\n"
+"          }\n"
+"         "));
+
+        toolbarLayout->addWidget(editSongBtn);
+
+        deleteSongBtn = new QPushButton(centralwidget);
+        deleteSongBtn->setObjectName("deleteSongBtn");
+        deleteSongBtn->setEnabled(false);
+        deleteSongBtn->setStyleSheet(QString::fromUtf8("\n"
+"          QPushButton {\n"
+"              background-color: #E94560;\n"
+"              border: none;\n"
+"              border-radius: 8px;\n"
+"              color: #FFFFFF;\n"
+"              font-family: \"Segoe UI\", sans-serif;\n"
+"              font-size: 13px;\n"
+"              font-weight: 600;\n"
+"              padding: 8px 16px;\n"
+"          }\n"
+"          QPushButton:hover {\n"
+"              background-color: #C73E54;\n"
+"          }\n"
+"         "));
+
+        toolbarLayout->addWidget(deleteSongBtn);
+
+        editAccountBtn = new QPushButton(centralwidget);
+        editAccountBtn->setObjectName("editAccountBtn");
+        editAccountBtn->setStyleSheet(QString::fromUtf8("\n"
+"          QPushButton {\n"
+"              background-color: #0F3460;\n"
+"              border: none;\n"
+"              border-radius: 8px;\n"
+"              color: #FFFFFF;\n"
+"              font-family: \"Segoe UI\", sans-serif;\n"
+"              font-size: 13px;\n"
+"              font-weight: 600;\n"
+"              padding: 8px 16px;\n"
+"          }\n"
+"          QPushButton:hover {\n"
+"              background-color: #16213E;\n"
+"          }\n"
+"         "));
+
+        toolbarLayout->addWidget(editAccountBtn);
+
         toolbarSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         toolbarLayout->addItem(toolbarSpacer);
@@ -174,115 +240,122 @@ public:
 
         verticalLayout->addLayout(toolbarLayout);
 
+        mainLayout = new QHBoxLayout();
+        mainLayout->setObjectName("mainLayout");
         albumsGroup = new QGroupBox(centralwidget);
         albumsGroup->setObjectName("albumsGroup");
         albumsGroup->setStyleSheet(QString::fromUtf8("\n"
-"        QGroupBox {\n"
-"            font-family: \"Segoe UI\", sans-serif;\n"
-"            font-size: 14px;\n"
-"            font-weight: 600;\n"
-"            color: #1A1A2E;\n"
-"            border: 2px solid #D0D0D0;\n"
-"            border-radius: 12px;\n"
-"            margin-top: 12px;\n"
-"            padding-top: 8px;\n"
-"        }\n"
-"        QGroupBox::title {\n"
-"            subcontrol-origin: margin;\n"
-"            subcontrol-position: top left;\n"
-"            left: 16px;\n"
-"            padding: 0 8px;\n"
-"            background-color: #F8F9FA;\n"
-"        }\n"
-"       "));
-        albumsLayout = new QHBoxLayout(albumsGroup);
+"          QGroupBox {\n"
+"              font-family: \"Segoe UI\", sans-serif;\n"
+"              font-size: 14px;\n"
+"              font-weight: 600;\n"
+"              color: #1A1A2E;\n"
+"              border: 2px solid #D0D0D0;\n"
+"              border-radius: 12px;\n"
+"              margin-top: 12px;\n"
+"              padding-top: 8px;\n"
+"          }\n"
+"          QGroupBox::title {\n"
+"              subcontrol-origin: margin;\n"
+"              subcontrol-position: top left;\n"
+"              left: 16px;\n"
+"              padding: 0 8px;\n"
+"              background-color: #F8F9FA;\n"
+"          }\n"
+"         "));
+        albumsLayout = new QVBoxLayout(albumsGroup);
         albumsLayout->setObjectName("albumsLayout");
         albumsList = new QListWidget(albumsGroup);
         albumsList->setObjectName("albumsList");
         albumsList->setStyleSheet(QString::fromUtf8("\n"
-"           QListWidget {\n"
-"               background-color: #FFFFFF;\n"
-"               border: none;\n"
-"               border-radius: 8px;\n"
-"               color: #1A1A2E;\n"
-"               font-size: 14px;\n"
-"               font-family: \"Segoe UI\", sans-serif;\n"
-"               padding: 8px;\n"
-"               min-height: 180px;\n"
-"           }\n"
-"           QListWidget::item {\n"
-"               padding: 12px 16px;\n"
-"               border-radius: 8px;\n"
-"               margin: 2px 0;\n"
-"           }\n"
-"           QListWidget::item:selected {\n"
-"               background-color: #0F3460;\n"
-"               color: #FFFFFF;\n"
-"           }\n"
-"           QListWidget::item:hover:!selected {\n"
-"               background-color: #E8EDF2;\n"
-"           }\n"
-"          "));
+"             QListWidget {\n"
+"                 background-color: #FFFFFF;\n"
+"                 border: none;\n"
+"                 border-radius: 8px;\n"
+"                 color: #1A1A2E;\n"
+"                 font-size: 14px;\n"
+"                 font-family: \"Segoe UI\", sans-serif;\n"
+"                 padding: 8px;\n"
+"                 min-height: 250px;\n"
+"                 max-height: 350px;\n"
+"             }\n"
+"             QListWidget::item {\n"
+"                 padding: 12px 16px;\n"
+"                 border-radius: 8px;\n"
+"                 margin: 2px 0;\n"
+"             }\n"
+"             QListWidget::item:selected {\n"
+"                 background-color: #0F3460;\n"
+"                 color: #FFFFFF;\n"
+"             }\n"
+"             QListWidget::item:hover:!selected {\n"
+"                 background-color: #E8EDF2;\n"
+"             }\n"
+"            "));
 
         albumsLayout->addWidget(albumsList);
 
 
-        verticalLayout->addWidget(albumsGroup);
+        mainLayout->addWidget(albumsGroup);
 
         songsGroup = new QGroupBox(centralwidget);
         songsGroup->setObjectName("songsGroup");
         songsGroup->setStyleSheet(QString::fromUtf8("\n"
-"        QGroupBox {\n"
-"            font-family: \"Segoe UI\", sans-serif;\n"
-"            font-size: 14px;\n"
-"            font-weight: 600;\n"
-"            color: #1A1A2E;\n"
-"            border: 2px solid #D0D0D0;\n"
-"            border-radius: 12px;\n"
-"            margin-top: 12px;\n"
-"            padding-top: 8px;\n"
-"        }\n"
-"        QGroupBox::title {\n"
-"            subcontrol-origin: margin;\n"
-"            subcontrol-position: top left;\n"
-"            left: 16px;\n"
-"            padding: 0 8px;\n"
-"            background-color: #F8F9FA;\n"
-"        }\n"
-"       "));
-        songsLayout = new QHBoxLayout(songsGroup);
+"          QGroupBox {\n"
+"              font-family: \"Segoe UI\", sans-serif;\n"
+"              font-size: 14px;\n"
+"              font-weight: 600;\n"
+"              color: #1A1A2E;\n"
+"              border: 2px solid #D0D0D0;\n"
+"              border-radius: 12px;\n"
+"              margin-top: 12px;\n"
+"              padding-top: 8px;\n"
+"          }\n"
+"          QGroupBox::title {\n"
+"              subcontrol-origin: margin;\n"
+"              subcontrol-position: top left;\n"
+"              left: 16px;\n"
+"              padding: 0 8px;\n"
+"              background-color: #F8F9FA;\n"
+"          }\n"
+"         "));
+        songsLayout = new QVBoxLayout(songsGroup);
         songsLayout->setObjectName("songsLayout");
         songsList = new QListWidget(songsGroup);
         songsList->setObjectName("songsList");
         songsList->setStyleSheet(QString::fromUtf8("\n"
-"           QListWidget {\n"
-"               background-color: #FFFFFF;\n"
-"               border: none;\n"
-"               border-radius: 8px;\n"
-"               color: #1A1A2E;\n"
-"               font-size: 13px;\n"
-"               font-family: \"Segoe UI\", sans-serif;\n"
-"               padding: 8px;\n"
-"               min-height: 120px;\n"
-"           }\n"
-"           QListWidget::item {\n"
-"               padding: 10px 16px;\n"
-"               border-radius: 8px;\n"
-"               margin: 1px 0;\n"
-"           }\n"
-"           QListWidget::item:selected {\n"
-"               background-color: #0F3460;\n"
-"               color: #FFFFFF;\n"
-"           }\n"
-"           QListWidget::item:hover:!selected {\n"
-"               background-color: #E8EDF2;\n"
-"           }\n"
-"          "));
+"             QListWidget {\n"
+"                 background-color: #FFFFFF;\n"
+"                 border: none;\n"
+"                 border-radius: 8px;\n"
+"                 color: #1A1A2E;\n"
+"                 font-size: 13px;\n"
+"                 font-family: \"Segoe UI\", sans-serif;\n"
+"                 padding: 8px;\n"
+"                 min-height: 250px;\n"
+"                 max-height: 350px;\n"
+"             }\n"
+"             QListWidget::item {\n"
+"                 padding: 10px 16px;\n"
+"                 border-radius: 8px;\n"
+"                 margin: 1px 0;\n"
+"             }\n"
+"             QListWidget::item:selected {\n"
+"                 background-color: #0F3460;\n"
+"                 color: #FFFFFF;\n"
+"             }\n"
+"             QListWidget::item:hover:!selected {\n"
+"                 background-color: #E8EDF2;\n"
+"             }\n"
+"            "));
 
         songsLayout->addWidget(songsList);
 
 
-        verticalLayout->addWidget(songsGroup);
+        mainLayout->addWidget(songsGroup);
+
+
+        verticalLayout->addLayout(mainLayout);
 
         errorLabel = new QLabel(centralwidget);
         errorLabel->setObjectName("errorLabel");
@@ -299,7 +372,7 @@ public:
         ArtistDashboard->setCentralWidget(centralwidget);
         menubar = new QMenuBar(ArtistDashboard);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 22));
+        menubar->setGeometry(QRect(0, 0, 900, 22));
         ArtistDashboard->setMenuBar(menubar);
         statusbar = new QStatusBar(ArtistDashboard);
         statusbar->setObjectName("statusbar");
@@ -317,9 +390,12 @@ public:
         logoutBtn->setText(QCoreApplication::translate("ArtistDashboard", "\360\237\232\252 Exit", nullptr));
         createAlbumBtn->setText(QCoreApplication::translate("ArtistDashboard", "\342\236\225 New Album", nullptr));
         createSongBtn->setText(QCoreApplication::translate("ArtistDashboard", "\360\237\216\265 New Song", nullptr));
-        deleteAlbumBtn->setText(QCoreApplication::translate("ArtistDashboard", "\360\237\227\221\357\270\217 Delete", nullptr));
+        deleteAlbumBtn->setText(QCoreApplication::translate("ArtistDashboard", "\360\237\227\221\357\270\217 Delete Album", nullptr));
+        editSongBtn->setText(QCoreApplication::translate("ArtistDashboard", "\342\234\217\357\270\217 Edit Song", nullptr));
+        deleteSongBtn->setText(QCoreApplication::translate("ArtistDashboard", "\360\237\227\221\357\270\217 Delete Song", nullptr));
+        editAccountBtn->setText(QCoreApplication::translate("ArtistDashboard", "\342\232\231\357\270\217 Edit Account", nullptr));
         albumsGroup->setTitle(QCoreApplication::translate("ArtistDashboard", "\360\237\223\200 Your Albums", nullptr));
-        songsGroup->setTitle(QCoreApplication::translate("ArtistDashboard", "\360\237\216\266 Songs in Album", nullptr));
+        songsGroup->setTitle(QCoreApplication::translate("ArtistDashboard", "\360\237\216\266 Songs", nullptr));
         errorLabel->setText(QString());
     } // retranslateUi
 

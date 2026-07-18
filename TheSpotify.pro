@@ -4,6 +4,8 @@ TARGET = TheSpotify
 TEMPLATE = app
 
 SOURCES += \
+    GUI/editaccountwindow.cpp \
+    GUI/editsongdialog.cpp \
     main.cpp \
     GUI/loginwindow.cpp \
     GUI/registerwindow.cpp \
@@ -18,6 +20,8 @@ SOURCES += \
     Sources/repositories/albummanager.cpp \
     Sources/repositories/playlistmanager.cpp \
     Sources/repositories/songmanager.cpp \
+    Sources/repositories/datamanager.cpp \
+    Sources/utils/filehelper.cpp \
     Sources/entities/account.cpp \
     Sources/entities/artist.cpp \
     Sources/entities/listener.cpp \
@@ -26,6 +30,8 @@ SOURCES += \
     Sources/entities/song.cpp
 
 HEADERS += \
+    GUI/editaccountwindow.h \
+    GUI/editsongdialog.h \
     GUI/loginwindow.h \
     GUI/registerwindow.h \
     GUI/artistdashboard.h \
@@ -39,6 +45,8 @@ HEADERS += \
     Sources/repositories/albummanager.h \
     Sources/repositories/playlistmanager.h \
     Sources/repositories/songmanager.h \
+    Sources/repositories/datamanager.h \
+    Sources/utils/filehelper.h \
     Sources/entities/account.h \
     Sources/entities/artist.h \
     Sources/entities/listener.h \
@@ -47,6 +55,8 @@ HEADERS += \
     Sources/entities/song.h
 
 FORMS += \
+    GUI/editaccountwindow.ui \
+    GUI/editsongdialog.ui \
     GUI/loginwindow.ui \
     GUI/registerwindow.ui \
     GUI/artistdashboard.ui \

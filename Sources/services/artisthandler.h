@@ -32,9 +32,13 @@ public:
     bool deleteSong(int songId);
     std::vector<Song> fetchArtistSongs(int artistId) const;
     std::vector<Song> fetchSongsByAlbum(int albumId) const;
+    std::shared_ptr<Song> fetchSong(int songId) const;
 
     std::vector<Song> fetchSingles(int artistId) const;
     std::shared_ptr<Artist> fetchArtist(int artistId) const;
+
+    void saveAllData();
+    void reloadAllData();
 };
 
 #endif

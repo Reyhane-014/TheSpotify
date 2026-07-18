@@ -34,11 +34,6 @@ public:
     bool addSongToPlaylist(int playlistId, int songId);
     bool removeSongFromPlaylist(int playlistId, int songId);
 
-    bool likeSong(int listenerId, int songId);
-    bool unlikeSong(int listenerId, int songId);
-    bool isSongLiked(int listenerId, int songId) const;
-    std::vector<Song> fetchLikedSongs(int listenerId) const;
-
     std::vector<Artist> fetchAllArtists() const;
     std::vector<Album> fetchArtistAlbums(int artistId) const;
     std::shared_ptr<Artist> fetchArtist(int artistId) const;
@@ -52,6 +47,9 @@ public:
     std::vector<Song> searchSongsByKeyword(const std::string& keyword) const;
     std::vector<Song> filterSongsByGenre(const std::string& genre) const;
     std::vector<Song> filterSongsByYear(int year) const;
+
+    void saveAllData();
+    void reloadAllData();
 };
 
 #endif
