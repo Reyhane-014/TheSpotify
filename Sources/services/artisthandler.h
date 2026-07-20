@@ -4,6 +4,8 @@
 #include "../repositories/artistmanager.h"
 #include "../repositories/albummanager.h"
 #include "../repositories/songmanager.h"
+#include "../repositories/listenermanager.h"
+#include "../repositories/playlistmanager.h"
 #include "../entities/artist.h"
 #include "../entities/album.h"
 #include "../entities/song.h"
@@ -16,6 +18,8 @@ private:
     ArtistManager artistManager;
     AlbumManager albumManager;
     SongManager songManager;
+    ListenerManager listenerManager;
+    PlaylistManager playlistManager;
 
 public:
     ArtistHandler();
@@ -28,7 +32,7 @@ public:
     int addNewSong(int artistId, const std::string& title, const std::string& genre,
                    int releaseYear, int duration, int albumId = 0, const std::string& filePath = "");
     bool updateSong(int songId, const std::string& title, const std::string& genre,
-                    int releaseYear, int duration, int albumId);
+                    int releaseYear, int duration, int albumId, const std::string& filePath = "");
     bool deleteSong(int songId);
     std::vector<Song> fetchArtistSongs(int artistId) const;
     std::vector<Song> fetchSongsByAlbum(int albumId) const;

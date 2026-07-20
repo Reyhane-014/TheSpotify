@@ -3,11 +3,11 @@
 
 #include <QMainWindow>
 #include <QListWidgetItem>
+#include <QDockWidget>
 #include "../Sources/services/listenerhandler.h"
+#include "playercontrol.h"
 
-QT_BEGIN_NAMESPACE
 namespace Ui { class ListenerDashboard; }
-QT_END_NAMESPACE
 
 class ListenerDashboard : public QMainWindow
 {
@@ -33,14 +33,17 @@ private slots:
     void onGenreFilterChanged(int index);
     void onYearFilterChanged(int index);
     void onClearFilterClicked();
+    void onSongDoubleClicked(QListWidgetItem* item);
 
 private:
     Ui::ListenerDashboard *ui;
     ListenerHandler listenerService;
+    PlayerControl* playerControl;
     int currentListenerId;
     int selectedPlaylistId;
     int selectedSongId;
     std::vector<Song> allSongsCache;
+    std::vector<Song> currentPlaylistSongs;
     void loadPlaylists();
     void loadSongsInPlaylist(int playlistId);
     void loadAllSongs();
@@ -48,6 +51,7 @@ private:
     void loadGenresAndYears();
     void showError(const QString& msg);
     void clearError();
+    void setupPlayerDock();
 };
 
 #endif

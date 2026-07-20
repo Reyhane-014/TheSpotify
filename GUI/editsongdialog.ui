@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>450</width>
-    <height>450</height>
+    <width>500</width>
+    <height>550</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>550</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Edit Song</string>
@@ -262,6 +268,68 @@
       </string>
      </property>
     </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="fileLabel">
+     <property name="text">
+      <string>Audio File</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+       color: #555555;
+       font-size: 12px;
+       font-weight: 600;
+       font-family: "Segoe UI", sans-serif;
+       margin-top: 10px;
+      </string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="fileLayout">
+     <item>
+      <widget class="QLabel" name="filePathLabel">
+       <property name="text">
+        <string>No file selected</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
+         color: #888888;
+         font-size: 12px;
+         font-family: "Segoe UI", sans-serif;
+         background-color: #F0F0F0;
+         border-radius: 8px;
+         padding: 8px 12px;
+         min-height: 20px;
+        </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="browseBtn">
+       <property name="text">
+        <string>📁 Browse</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
+         QPushButton {
+             background-color: #0F3460;
+             border: none;
+             border-radius: 8px;
+             color: #FFFFFF;
+             font-family: "Segoe UI", sans-serif;
+             font-size: 13px;
+             font-weight: 600;
+             padding: 8px 16px;
+         }
+         QPushButton:hover {
+             background-color: #16213E;
+         }
+        </string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <spacer name="verticalSpacer">

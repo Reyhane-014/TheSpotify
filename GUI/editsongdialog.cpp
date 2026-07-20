@@ -1,6 +1,7 @@
 #include "editsongdialog.h"
 #include "ui_editsongdialog.h"
 #include <QMessageBox>
+#include <QFileDialog>
 #include <iostream>
 
 EditSongDialog::EditSongDialog(int artistId, int songId, QWidget *parent)
@@ -19,6 +20,7 @@ EditSongDialog::EditSongDialog(int artistId, int songId, QWidget *parent)
 
     connect(ui->saveBtn, &QPushButton::clicked, this, &EditSongDialog::onSaveClicked);
     connect(ui->cancelBtn, &QPushButton::clicked, this, &EditSongDialog::onCancelClicked);
+    connect(ui->browseBtn, &QPushButton::clicked, this, &EditSongDialog::onBrowseFileClicked);
 
     std::cout << "========== EDIT SONG DIALOG CONSTRUCTOR COMPLETE ==========\n" << std::endl;
 }
@@ -47,16 +49,19 @@ void EditSongDialog::loadSongData()
     auto songPtr = artistService.fetchSong(currentSongId);
     if (songPtr) {
         currentSong = *songPtr;
+        currentFilePath = QString::fromStdString(currentSong.getFilePath());
         std::cout << "Found song: " << currentSong.getTitle() << std::endl;
         std::cout << "Genre: " << currentSong.getGenre() << std::endl;
         std::cout << "Year: " << currentSong.getReleaseYear() << std::endl;
         std::cout << "Duration: " << currentSong.getDuration() << std::endl;
         std::cout << "Album ID: " << currentSong.getAlbumId() << std::endl;
+        std::cout << "File Path: " << currentSong.getFilePath() << std::endl;
 
         ui->titleEdit->setText(QString::fromStdString(currentSong.getTitle()));
         ui->genreEdit->setText(QString::fromStdString(currentSong.getGenre()));
         ui->yearSpin->setValue(currentSong.getReleaseYear());
         ui->durationSpin->setValue(currentSong.getDuration());
+        updateFilePathDisplay();
 
         int albumId = currentSong.getAlbumId();
         for (int i = 0; i < ui->albumCombo->count(); ++i) {
@@ -70,6 +75,35 @@ void EditSongDialog::loadSongData()
         std::cout << "ERROR: Song NOT found! ID: " << currentSongId << std::endl;
     }
     std::cout << "========== LOAD SONG DATA COMPLETE ==========\n" << std::endl;
+}
+
+void EditSongDialog::updateFilePathDisplay()
+{
+    if (!currentFilePath.isEmpty()) {
+        QFileInfo fileInfo(currentFilePath);
+        ui->filePathLabel->setText("📁 " + fileInfo.fileName());
+        ui->filePathLabel->setToolTip(currentFilePath);
+        ui->filePathLabel->setStyleSheet("color: #28A745; font-size: 12px;");
+    } else {
+        ui->filePathLabel->setText("No file selected");
+        ui->filePathLabel->setToolTip("");
+        ui->filePathLabel->setStyleSheet("color: #888888; font-size: 12px;");
+    }
+}
+
+void EditSongDialog::onBrowseFileClicked()
+{
+    QString filePath = QFileDialog::getOpenFileName(
+        this,
+        "Select Audio File",
+        currentFilePath.isEmpty() ? "" : QFileInfo(currentFilePath).absolutePath(),
+        "Audio Files (*.mp3 *.wav *.flac *.m4a *.aac *.ogg *.wma);;All Files (*)"
+        );
+
+    if (!filePath.isEmpty()) {
+        currentFilePath = filePath;
+        updateFilePathDisplay();
+    }
 }
 
 void EditSongDialog::onSaveClicked()
@@ -88,6 +122,7 @@ void EditSongDialog::onSaveClicked()
     std::cout << "Year: " << year << std::endl;
     std::cout << "Duration: " << duration << std::endl;
     std::cout << "Album ID: " << albumId << std::endl;
+    std::cout << "File Path: " << currentFilePath.toStdString() << std::endl;
 
     if (title.isEmpty()) {
         std::cout << "ERROR: Title is empty!" << std::endl;

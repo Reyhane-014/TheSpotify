@@ -1,4 +1,4 @@
-QT       += core widgets
+QT       += core widgets multimedia
 
 TARGET = TheSpotify
 TEMPLATE = app
@@ -6,6 +6,7 @@ TEMPLATE = app
 SOURCES += \
     GUI/editaccountwindow.cpp \
     GUI/editsongdialog.cpp \
+    GUI/playercontrol.cpp \
     main.cpp \
     GUI/loginwindow.cpp \
     GUI/registerwindow.cpp \
@@ -32,6 +33,7 @@ SOURCES += \
 HEADERS += \
     GUI/editaccountwindow.h \
     GUI/editsongdialog.h \
+    GUI/playercontrol.h \
     GUI/loginwindow.h \
     GUI/registerwindow.h \
     GUI/artistdashboard.h \
@@ -57,6 +59,7 @@ HEADERS += \
 FORMS += \
     GUI/editaccountwindow.ui \
     GUI/editsongdialog.ui \
+    GUI/playercontrol.ui \
     GUI/loginwindow.ui \
     GUI/registerwindow.ui \
     GUI/artistdashboard.ui \

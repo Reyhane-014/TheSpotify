@@ -39,6 +39,10 @@ public:
     QSpinBox *durationSpin;
     QLabel *albumLabel;
     QComboBox *albumCombo;
+    QLabel *fileLabel;
+    QHBoxLayout *fileLayout;
+    QLabel *filePathLabel;
+    QPushButton *browseBtn;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *buttonLayout;
     QPushButton *cancelBtn;
@@ -48,7 +52,8 @@ public:
     {
         if (EditSongDialog->objectName().isEmpty())
             EditSongDialog->setObjectName("EditSongDialog");
-        EditSongDialog->resize(450, 450);
+        EditSongDialog->resize(500, 550);
+        EditSongDialog->setMinimumSize(QSize(500, 550));
         EditSongDialog->setStyleSheet(QString::fromUtf8("\n"
 "    QDialog {\n"
 "        background: qlineargradient(\n"
@@ -241,6 +246,57 @@ public:
 
         verticalLayout->addWidget(albumCombo);
 
+        fileLabel = new QLabel(EditSongDialog);
+        fileLabel->setObjectName("fileLabel");
+        fileLabel->setStyleSheet(QString::fromUtf8("\n"
+"       color: #555555;\n"
+"       font-size: 12px;\n"
+"       font-weight: 600;\n"
+"       font-family: \"Segoe UI\", sans-serif;\n"
+"       margin-top: 10px;\n"
+"      "));
+
+        verticalLayout->addWidget(fileLabel);
+
+        fileLayout = new QHBoxLayout();
+        fileLayout->setObjectName("fileLayout");
+        filePathLabel = new QLabel(EditSongDialog);
+        filePathLabel->setObjectName("filePathLabel");
+        filePathLabel->setStyleSheet(QString::fromUtf8("\n"
+"         color: #888888;\n"
+"         font-size: 12px;\n"
+"         font-family: \"Segoe UI\", sans-serif;\n"
+"         background-color: #F0F0F0;\n"
+"         border-radius: 8px;\n"
+"         padding: 8px 12px;\n"
+"         min-height: 20px;\n"
+"        "));
+
+        fileLayout->addWidget(filePathLabel);
+
+        browseBtn = new QPushButton(EditSongDialog);
+        browseBtn->setObjectName("browseBtn");
+        browseBtn->setStyleSheet(QString::fromUtf8("\n"
+"         QPushButton {\n"
+"             background-color: #0F3460;\n"
+"             border: none;\n"
+"             border-radius: 8px;\n"
+"             color: #FFFFFF;\n"
+"             font-family: \"Segoe UI\", sans-serif;\n"
+"             font-size: 13px;\n"
+"             font-weight: 600;\n"
+"             padding: 8px 16px;\n"
+"         }\n"
+"         QPushButton:hover {\n"
+"             background-color: #16213E;\n"
+"         }\n"
+"        "));
+
+        fileLayout->addWidget(browseBtn);
+
+
+        verticalLayout->addLayout(fileLayout);
+
         verticalSpacer = new QSpacerItem(20, 20, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
@@ -310,6 +366,9 @@ public:
         yearLabel->setText(QCoreApplication::translate("EditSongDialog", "Release Year", nullptr));
         durationLabel->setText(QCoreApplication::translate("EditSongDialog", "Duration (s)", nullptr));
         albumLabel->setText(QCoreApplication::translate("EditSongDialog", "Album", nullptr));
+        fileLabel->setText(QCoreApplication::translate("EditSongDialog", "Audio File", nullptr));
+        filePathLabel->setText(QCoreApplication::translate("EditSongDialog", "No file selected", nullptr));
+        browseBtn->setText(QCoreApplication::translate("EditSongDialog", "\360\237\223\201 Browse", nullptr));
         cancelBtn->setText(QCoreApplication::translate("EditSongDialog", "Cancel", nullptr));
         saveBtn->setText(QCoreApplication::translate("EditSongDialog", "\360\237\222\276 Save Changes", nullptr));
     } // retranslateUi

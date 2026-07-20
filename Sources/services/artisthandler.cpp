@@ -103,7 +103,7 @@ int ArtistHandler::addNewSong(int artistId, const std::string& title, const std:
 }
 
 bool ArtistHandler::updateSong(int songId, const std::string& title, const std::string& genre,
-                               int releaseYear, int duration, int albumId)
+                               int releaseYear, int duration, int albumId, const std::string& filePath)
 {
     if (title.empty()) {
         return false;
@@ -119,6 +119,10 @@ bool ArtistHandler::updateSong(int songId, const std::string& title, const std::
     updatedSong.setGenre(genre);
     updatedSong.setReleaseYear(releaseYear);
     updatedSong.setDuration(duration);
+
+    if (!filePath.empty()) {
+        updatedSong.setFilePath(filePath);
+    }
 
     if (updatedSong.getAlbumId() != albumId) {
         if (updatedSong.getAlbumId() != 0) {
@@ -219,7 +223,9 @@ void ArtistHandler::saveAllData()
 
     dm->saveAccounts(am->getAllAccounts());
     dm->saveArtists(artistManager.getAllArtists());
+    dm->saveListeners(listenerManager.getAllListeners());
     dm->saveAlbums(albumManager.getAllAlbums());
+    dm->savePlaylists(playlistManager.getAllPlaylists());
     dm->saveSongs(songManager.getAllSongs());
 }
 
@@ -228,4 +234,6 @@ void ArtistHandler::reloadAllData()
     artistManager.reload();
     albumManager.reload();
     songManager.reload();
+    listenerManager.reload();
+    playlistManager.reload();
 }

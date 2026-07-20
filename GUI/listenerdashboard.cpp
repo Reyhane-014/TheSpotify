@@ -20,6 +20,7 @@ ListenerDashboard::ListenerDashboard(int listenerId, QWidget *parent)
     ui->yearFilterCombo->addItem("All Years", -1);
 
     loadAllSongs();
+    setupPlayerDock();
 
     connect(ui->logoutBtn, &QPushButton::clicked, this, &ListenerDashboard::onLogoutClicked);
     connect(ui->createPlaylistBtn, &QPushButton::clicked, this, &ListenerDashboard::onCreatePlaylistClicked);
@@ -32,6 +33,8 @@ ListenerDashboard::ListenerDashboard(int listenerId, QWidget *parent)
     connect(ui->removeSongBtn, &QPushButton::clicked, this, &ListenerDashboard::onRemoveSongClicked);
     connect(ui->songsList, &QListWidget::itemClicked, this, &ListenerDashboard::onSongInPlaylistSelected);
     connect(ui->allSongsList, &QListWidget::itemClicked, this, &ListenerDashboard::onAllSongsItemClicked);
+    connect(ui->songsList, &QListWidget::itemDoubleClicked, this, &ListenerDashboard::onSongDoubleClicked);
+    connect(ui->allSongsList, &QListWidget::itemDoubleClicked, this, &ListenerDashboard::onSongDoubleClicked);
 
     connect(ui->searchEdit, &QLineEdit::textChanged, this, &ListenerDashboard::onSearchTextChanged);
     connect(ui->genreFilterCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ListenerDashboard::onGenreFilterChanged);
@@ -47,6 +50,18 @@ ListenerDashboard::ListenerDashboard(int listenerId, QWidget *parent)
 ListenerDashboard::~ListenerDashboard()
 {
     delete ui;
+}
+
+void ListenerDashboard::setupPlayerDock()
+{
+    QDockWidget* dock = new QDockWidget("Music Player", this);
+    dock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
+    dock->setAllowedAreas(Qt::BottomDockWidgetArea);
+
+    playerControl = new PlayerControl(this);
+    dock->setWidget(playerControl);
+
+    this->addDockWidget(Qt::BottomDockWidgetArea, dock);
 }
 
 void ListenerDashboard::loadGenresAndYears()
@@ -112,6 +127,7 @@ void ListenerDashboard::loadSongsInPlaylist(int playlistId)
     ui->songsList->clear();
     selectedSongId = -1;
     ui->removeSongBtn->setEnabled(false);
+    currentPlaylistSongs.clear();
 
     try {
         auto playlist = listenerService.getPlaylist(playlistId);
@@ -121,6 +137,7 @@ void ListenerDashboard::loadSongsInPlaylist(int playlistId)
                 int songId = songIds[i];
                 auto songPtr = listenerService.fetchSong(songId);
                 if (songPtr) {
+                    currentPlaylistSongs.push_back(*songPtr);
                     QString display = QString::fromStdString(songPtr->getTitle()) + " (" +
                                       QString::number(songPtr->getDuration()) + "s)";
                     QListWidgetItem* item = new QListWidgetItem(display);
@@ -461,6 +478,23 @@ void ListenerDashboard::onViewArtistsClicked()
         }
     } catch (const std::exception& e) {
         showError(e.what());
+    }
+}
+
+void ListenerDashboard::onSongDoubleClicked(QListWidgetItem* item)
+{
+    if (!item) {
+        return;
+    }
+
+    int songId = item->data(Qt::UserRole).toInt();
+
+    if (ui->songsList->hasFocus() && !currentPlaylistSongs.empty()) {
+        playerControl->setPlaylist(currentPlaylistSongs);
+        playerControl->playSong(songId);
+    } else {
+        playerControl->setPlaylist(allSongsCache);
+        playerControl->playSong(songId);
     }
 }
 

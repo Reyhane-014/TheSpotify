@@ -18,6 +18,7 @@ public:
 private slots:
     void onSaveClicked();
     void onCancelClicked();
+    void onBrowseFileClicked();
 
 private:
     Ui::EditSongDialog *ui;
@@ -25,8 +26,10 @@ private:
     int currentArtistId;
     int currentSongId;
     Song currentSong;
+    QString currentFilePath;
     void loadSongData();
     void loadAlbums();
+    void updateFilePathDisplay();
 };
 
 #endif

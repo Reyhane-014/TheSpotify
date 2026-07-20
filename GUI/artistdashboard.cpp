@@ -4,6 +4,7 @@
 #include "editsongdialog.h"
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QFileDialog>
 #include <iostream>
 
 ArtistDashboard::ArtistDashboard(int artistId, QWidget *parent)
@@ -79,6 +80,9 @@ void ArtistDashboard::loadSongs(int albumId)
         for (const auto& song : songs) {
             QString display = QString::fromStdString(song.getTitle()) + " (" +
                               QString::number(song.getDuration()) + "s)";
+            if (!song.getFilePath().empty()) {
+                display += " 📁";
+            }
             QListWidgetItem* item = new QListWidgetItem(display);
             item->setData(Qt::UserRole, song.getId());
             ui->songsList->addItem(item);
@@ -199,13 +203,24 @@ void ArtistDashboard::onCreateSongClicked()
         }
     }
 
+    // Ask for audio file
+    QString filePath = QFileDialog::getOpenFileName(
+        this,
+        "Select Audio File",
+        "",
+        "Audio Files (*.mp3 *.wav *.flac *.m4a *.aac *.ogg *.wma);;All Files (*)"
+        );
+
     try {
-        int songId = artistService.addNewSong(currentArtistId,
-                                              title.toStdString(),
-                                              genre.toStdString(),
-                                              year,
-                                              duration,
-                                              albumId);
+        int songId = artistService.addNewSong(
+            currentArtistId,
+            title.toStdString(),
+            genre.toStdString(),
+            year,
+            duration,
+            albumId,
+            filePath.toStdString()
+            );
         if (songId != -1) {
             artistService.reloadAllData();
             loadAlbums();

@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PlayerControl</class>
+ <widget class="QWidget" name="PlayerControl">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>650</width>
+    <height>110</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>650</width>
+    <height>110</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>110</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Player</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+    QWidget {
+        background-color: #F8F9FA;
+        border-top: 2px solid #E0E0E0;
+    }
+    QLabel {
+        color: #1A1A2E;
+        font-family: "Segoe UI", sans-serif;
+    }
+    QPushButton {
+        background-color: transparent;
+        border: none;
+        color: #1A1A2E;
+        font-family: "Segoe UI", sans-serif;
+        padding: 8px;
+    }
+    QPushButton:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 20px;
+    }
+    QSlider::groove:horizontal {
+        background-color: #D0D0D0;
+        height: 4px;
+        border-radius: 2px;
+    }
+    QSlider::handle:horizontal {
+        background-color: #007AFF;
+        width: 12px;
+        height: 12px;
+        margin: -4px 0;
+        border-radius: 6px;
+    }
+    QSlider::sub-page:horizontal {
+        background-color: #007AFF;
+        border-radius: 2px;
+    }
+    QSlider::groove:vertical {
+        background-color: #D0D0D0;
+        width: 4px;
+        border-radius: 2px;
+    }
+    QSlider::handle:vertical {
+        background-color: #007AFF;
+        width: 12px;
+        height: 12px;
+        margin: 0 -4px;
+        border-radius: 6px;
+    }
+    QSlider::sub-page:vertical {
+        background-color: #007AFF;
+        border-radius: 2px;
+    }
+   </string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>2</number>
+   </property>
+   <property name="leftMargin">
+    <number>10</number>
+   </property>
+   <property name="topMargin">
+    <number>6</number>
+   </property>
+   <property name="rightMargin">
+    <number>10</number>
+   </property>
+   <property name="bottomMargin">
+    <number>6</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" name="songInfoLayout">
+     <item>
+      <widget class="QLabel" name="statusIndicator">
+       <property name="text">
+        <string>⏹</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: #6C757D; font-size: 18px; font-weight: bold;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="currentSongLabel">
+       <property name="text">
+        <string>No song playing</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 13px; font-weight: 600; color: #1A1A2E;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="infoSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="songInfoLabel">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 12px; color: #6C757D;</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="positionLayout">
+     <item>
+      <widget class="QSlider" name="positionSlider">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="timeLabel">
+       <property name="text">
+        <string>00:00 / 00:00</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 11px; color: #6C757D; min-width: 90px;</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="controlLayout">
+     <item>
+      <spacer name="leftSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="prevBtn">
+       <property name="text">
+        <string>⏮</string>
+       </property>
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton { font-size: 20px; padding: 5px 10px; color: #0F3460; } QPushButton:hover { background-color: rgba(15, 52, 96, 0.1); border-radius: 20px; }</string>
+       </property>
+       <property name="toolTip">
+        <string>Previous</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="playBtn">
+       <property name="text">
+        <string>▶</string>
+       </property>
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton { font-size: 28px; padding: 5px 15px; background-color: #0F3460; border-radius: 25px; color: #FFFFFF; min-width: 60px; min-height: 45px; } QPushButton:hover { background-color: #1A1A4E; } QPushButton:disabled { background-color: #A0A0A0; }</string>
+       </property>
+       <property name="toolTip">
+        <string>Play / Pause</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="stopBtn">
+       <property name="text">
+        <string>⏹</string>
+       </property>
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton { font-size: 20px; padding: 5px 10px; color: #E94560; } QPushButton:hover { background-color: rgba(233, 69, 96, 0.1); border-radius: 20px; }</string>
+       </property>
+       <property name="toolTip">
+        <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="nextBtn">
+       <property name="text">
+        <string>⏭</string>
+       </property>
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton { font-size: 20px; padding: 5px 10px; color: #0F3460; } QPushButton:hover { background-color: rgba(15, 52, 96, 0.1); border-radius: 20px; }</string>
+       </property>
+       <property name="toolTip">
+        <string>Next</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="volumeBtn">
+       <property name="text">
+        <string>🔊</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton { font-size: 16px; padding: 5px 8px; color: #0F3460; } QPushButton:hover { background-color: rgba(15, 52, 96, 0.1); border-radius: 20px; }</string>
+       </property>
+       <property name="toolTip">
+        <string>Mute</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSlider" name="volumeSlider">
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>80</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QSlider::groove:horizontal { background-color: #D0D0D0; height: 4px; border-radius: 2px; } QSlider::handle:horizontal { background-color: #0F3460; width: 10px; height: 10px; margin: -3px 0; border-radius: 5px; } QSlider::sub-page:horizontal { background-color: #0F3460; border-radius: 2px; }</string>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="rightSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -58,7 +58,8 @@ template <> constexpr inline auto ListenerDashboard::qt_create_metaobjectdata<qt
         "onGenreFilterChanged",
         "index",
         "onYearFilterChanged",
-        "onClearFilterClicked"
+        "onClearFilterClicked",
+        "onSongDoubleClicked"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -104,6 +105,10 @@ template <> constexpr inline auto ListenerDashboard::qt_create_metaobjectdata<qt
         }}),
         // Slot 'onClearFilterClicked'
         QtMocHelpers::SlotData<void()>(20, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onSongDoubleClicked'
+        QtMocHelpers::SlotData<void(QListWidgetItem *)>(21, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 6, 7 },
+        }}),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -142,6 +147,7 @@ void ListenerDashboard::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 12: _t->onGenreFilterChanged((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
         case 13: _t->onYearFilterChanged((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
         case 14: _t->onClearFilterClicked(); break;
+        case 15: _t->onSongDoubleClicked((*reinterpret_cast<std::add_pointer_t<QListWidgetItem*>>(_a[1]))); break;
         default: ;
         }
     }
@@ -166,14 +172,14 @@ int ListenerDashboard::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 16;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 15)
+        if (_id < 16)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 15;
+        _id -= 16;
     }
     return _id;
 }

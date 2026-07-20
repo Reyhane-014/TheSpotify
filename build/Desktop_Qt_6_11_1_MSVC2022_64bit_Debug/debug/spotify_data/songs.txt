@@ -1,4 +1,4 @@
 1|a|Pop|2025|180|1|1|
 2|b|Pop|2026|180|1|1|
-3|c|Pop|2026|180|1|1|
-4|d|Pop|2025|180|1|1|
+7|SONG WITH SOUND|Pop|2026|180|1|1|C:/Users/masso/OneDrive/Desktop/TheSpotify/Songs/روشنی اگر تویی.mp3
+8|SECOND SONG|Pop|2025|180|1|1|C:/Users/masso/OneDrive/Desktop/TheSpotify/Songs/عطرموهایت (1).mp3
